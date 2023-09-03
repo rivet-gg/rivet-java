@@ -40,7 +40,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'gg.rivet'
             artifactId = 'api'
-            version = 'v23.1.0-rc2'
+            version = 'v23.1.0-rc3'
             from components.java
         }
     }
