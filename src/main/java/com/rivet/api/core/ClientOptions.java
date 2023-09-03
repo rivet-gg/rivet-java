@@ -26,7 +26,7 @@ public final class ClientOptions {
                 "X-Fern-SDK-Name",
                 "com.rivet.fern:api-sdk",
                 "X-Fern-SDK-Version",
-                "v23.1.0-rc3",
+                "v23.1.0-rc4",
                 "X-Fern-Language",
                 "JAVA"));
         this.headerSuppliers = headerSuppliers;
