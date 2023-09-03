@@ -1,23 +1,18 @@
 package com.rivet.api.resources.cloud.common.types;
 
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
+import com.rivet.api.core.ObjectMappers;
 
 public final class KvNamespaceConfig {
-  private int _cachedHashCode;
+    private KvNamespaceConfig() {}
 
-  KvNamespaceConfig() {
-  }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        return other instanceof KvNamespaceConfig;
+    }
 
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    return other instanceof KvNamespaceConfig;
-  }
-
-  @Override
-  public String toString() {
-    return "KvNamespaceConfig{" + "}";
-  }
+    @Override
+    public String toString() {
+        return ObjectMappers.stringify(this);
+    }
 }

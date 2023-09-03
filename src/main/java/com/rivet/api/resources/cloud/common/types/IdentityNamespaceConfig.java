@@ -1,23 +1,18 @@
 package com.rivet.api.resources.cloud.common.types;
 
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
+import com.rivet.api.core.ObjectMappers;
 
 public final class IdentityNamespaceConfig {
-  private int _cachedHashCode;
+    private IdentityNamespaceConfig() {}
 
-  IdentityNamespaceConfig() {
-  }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        return other instanceof IdentityNamespaceConfig;
+    }
 
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    return other instanceof IdentityNamespaceConfig;
-  }
-
-  @Override
-  public String toString() {
-    return "IdentityNamespaceConfig{" + "}";
-  }
+    @Override
+    public String toString() {
+        return ObjectMappers.stringify(this);
+    }
 }
