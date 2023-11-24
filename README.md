@@ -1,13 +1,13 @@
 # Rivet Java Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/gg.rivet/api)](https://central.sonatype.com/artifact/gg.rivet/api) 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://buildwithfern.com/?utm_source=rivet-gg/rivet-java/readme)
 
 The Rivet Java SDK provides convenient access to the Rivet APIs from Java. 
 
 ## Documentation
 
-API documentation is available at [here]([https://docs.merge.dev/basics/authentication/](https://rivet.gg/docs/general)).
+API documentation is available at [here](https://rivet.gg/docs).
 
 ## Installation
 
