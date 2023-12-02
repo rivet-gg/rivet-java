@@ -10,6 +10,7 @@ import com.rivet.api.core.ObjectMappers;
 import com.rivet.api.resources.captcha.config.types.Config;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,6 +25,10 @@ public final class FindLobbyRequest {
 
     private final Optional<Boolean> preventAutoCreateLobby;
 
+    private final Optional<Map<String, String>> tags;
+
+    private final Optional<Integer> maxPlayers;
+
     private final Optional<Config> captcha;
 
     private final Optional<Object> verificationData;
@@ -33,12 +38,16 @@ public final class FindLobbyRequest {
             List<String> gameModes,
             Optional<List<String>> regions,
             Optional<Boolean> preventAutoCreateLobby,
+            Optional<Map<String, String>> tags,
+            Optional<Integer> maxPlayers,
             Optional<Config> captcha,
             Optional<Object> verificationData) {
         this.origin = origin;
         this.gameModes = gameModes;
         this.regions = regions;
         this.preventAutoCreateLobby = preventAutoCreateLobby;
+        this.tags = tags;
+        this.maxPlayers = maxPlayers;
         this.captcha = captcha;
         this.verificationData = verificationData;
     }
@@ -63,6 +72,16 @@ public final class FindLobbyRequest {
         return preventAutoCreateLobby;
     }
 
+    @JsonProperty("tags")
+    public Optional<Map<String, String>> getTags() {
+        return tags;
+    }
+
+    @JsonProperty("max_players")
+    public Optional<Integer> getMaxPlayers() {
+        return maxPlayers;
+    }
+
     @JsonProperty("captcha")
     public Optional<Config> getCaptcha() {
         return captcha;
@@ -84,6 +103,8 @@ public final class FindLobbyRequest {
                 && gameModes.equals(other.gameModes)
                 && regions.equals(other.regions)
                 && preventAutoCreateLobby.equals(other.preventAutoCreateLobby)
+                && tags.equals(other.tags)
+                && maxPlayers.equals(other.maxPlayers)
                 && captcha.equals(other.captcha)
                 && verificationData.equals(other.verificationData);
     }
@@ -95,6 +116,8 @@ public final class FindLobbyRequest {
                 this.gameModes,
                 this.regions,
                 this.preventAutoCreateLobby,
+                this.tags,
+                this.maxPlayers,
                 this.captcha,
                 this.verificationData);
     }
@@ -118,6 +141,10 @@ public final class FindLobbyRequest {
 
         private Optional<Boolean> preventAutoCreateLobby = Optional.empty();
 
+        private Optional<Map<String, String>> tags = Optional.empty();
+
+        private Optional<Integer> maxPlayers = Optional.empty();
+
         private Optional<Config> captcha = Optional.empty();
 
         private Optional<Object> verificationData = Optional.empty();
@@ -129,6 +156,8 @@ public final class FindLobbyRequest {
             gameModes(other.getGameModes());
             regions(other.getRegions());
             preventAutoCreateLobby(other.getPreventAutoCreateLobby());
+            tags(other.getTags());
+            maxPlayers(other.getMaxPlayers());
             captcha(other.getCaptcha());
             verificationData(other.getVerificationData());
             return this;
@@ -184,6 +213,28 @@ public final class FindLobbyRequest {
             return this;
         }
 
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public Builder tags(Optional<Map<String, String>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        public Builder tags(Map<String, String> tags) {
+            this.tags = Optional.of(tags);
+            return this;
+        }
+
+        @JsonSetter(value = "max_players", nulls = Nulls.SKIP)
+        public Builder maxPlayers(Optional<Integer> maxPlayers) {
+            this.maxPlayers = maxPlayers;
+            return this;
+        }
+
+        public Builder maxPlayers(Integer maxPlayers) {
+            this.maxPlayers = Optional.of(maxPlayers);
+            return this;
+        }
+
         @JsonSetter(value = "captcha", nulls = Nulls.SKIP)
         public Builder captcha(Optional<Config> captcha) {
             this.captcha = captcha;
@@ -207,7 +258,8 @@ public final class FindLobbyRequest {
         }
 
         public FindLobbyRequest build() {
-            return new FindLobbyRequest(origin, gameModes, regions, preventAutoCreateLobby, captcha, verificationData);
+            return new FindLobbyRequest(
+                    origin, gameModes, regions, preventAutoCreateLobby, tags, maxPlayers, captcha, verificationData);
         }
     }
 }

@@ -15,9 +15,15 @@ public final class PresignedRequest {
 
     private final String url;
 
-    private PresignedRequest(String path, String url) {
+    private final long byteOffset;
+
+    private final long contentLength;
+
+    private PresignedRequest(String path, String url, long byteOffset, long contentLength) {
         this.path = path;
         this.url = url;
+        this.byteOffset = byteOffset;
+        this.contentLength = contentLength;
     }
 
     /**
@@ -36,6 +42,22 @@ public final class PresignedRequest {
         return url;
     }
 
+    /**
+     * @return The byte offset for this multipart chunk. Always 0 if not a multipart upload.
+     */
+    @JsonProperty("byte_offset")
+    public long getByteOffset() {
+        return byteOffset;
+    }
+
+    /**
+     * @return Expected size of this upload.
+     */
+    @JsonProperty("content_length")
+    public long getContentLength() {
+        return contentLength;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -43,12 +65,15 @@ public final class PresignedRequest {
     }
 
     private boolean equalTo(PresignedRequest other) {
-        return path.equals(other.path) && url.equals(other.url);
+        return path.equals(other.path)
+                && url.equals(other.url)
+                && byteOffset == other.byteOffset
+                && contentLength == other.contentLength;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.path, this.url);
+        return Objects.hash(this.path, this.url, this.byteOffset, this.contentLength);
     }
 
     @Override
@@ -67,7 +92,15 @@ public final class PresignedRequest {
     }
 
     public interface UrlStage {
-        _FinalStage url(String url);
+        ByteOffsetStage url(String url);
+    }
+
+    public interface ByteOffsetStage {
+        ContentLengthStage byteOffset(long byteOffset);
+    }
+
+    public interface ContentLengthStage {
+        _FinalStage contentLength(long contentLength);
     }
 
     public interface _FinalStage {
@@ -75,10 +108,14 @@ public final class PresignedRequest {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements PathStage, UrlStage, _FinalStage {
+    public static final class Builder implements PathStage, UrlStage, ByteOffsetStage, ContentLengthStage, _FinalStage {
         private String path;
 
         private String url;
+
+        private long byteOffset;
+
+        private long contentLength;
 
         private Builder() {}
 
@@ -86,6 +123,8 @@ public final class PresignedRequest {
         public Builder from(PresignedRequest other) {
             path(other.getPath());
             url(other.getUrl());
+            byteOffset(other.getByteOffset());
+            contentLength(other.getContentLength());
             return this;
         }
 
@@ -106,14 +145,36 @@ public final class PresignedRequest {
          */
         @Override
         @JsonSetter("url")
-        public _FinalStage url(String url) {
+        public ByteOffsetStage url(String url) {
             this.url = url;
+            return this;
+        }
+
+        /**
+         * <p>The byte offset for this multipart chunk. Always 0 if not a multipart upload.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        @JsonSetter("byte_offset")
+        public ContentLengthStage byteOffset(long byteOffset) {
+            this.byteOffset = byteOffset;
+            return this;
+        }
+
+        /**
+         * <p>Expected size of this upload.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        @JsonSetter("content_length")
+        public _FinalStage contentLength(long contentLength) {
+            this.contentLength = contentLength;
             return this;
         }
 
         @Override
         public PresignedRequest build() {
-            return new PresignedRequest(path, url);
+            return new PresignedRequest(path, url, byteOffset, contentLength);
         }
     }
 }

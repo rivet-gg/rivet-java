@@ -17,9 +17,9 @@ public final class PrepareCustomAvatarUploadRequest {
 
     private final Optional<String> mime;
 
-    private final Optional<Long> contentLength;
+    private final long contentLength;
 
-    private PrepareCustomAvatarUploadRequest(String path, Optional<String> mime, Optional<Long> contentLength) {
+    private PrepareCustomAvatarUploadRequest(String path, Optional<String> mime, long contentLength) {
         this.path = path;
         this.mime = mime;
         this.contentLength = contentLength;
@@ -45,7 +45,7 @@ public final class PrepareCustomAvatarUploadRequest {
      * @return Unsigned 64 bit integer.
      */
     @JsonProperty("content_length")
-    public Optional<Long> getContentLength() {
+    public long getContentLength() {
         return contentLength;
     }
 
@@ -56,7 +56,7 @@ public final class PrepareCustomAvatarUploadRequest {
     }
 
     private boolean equalTo(PrepareCustomAvatarUploadRequest other) {
-        return path.equals(other.path) && mime.equals(other.mime) && contentLength.equals(other.contentLength);
+        return path.equals(other.path) && mime.equals(other.mime) && contentLength == other.contentLength;
     }
 
     @Override
@@ -74,9 +74,13 @@ public final class PrepareCustomAvatarUploadRequest {
     }
 
     public interface PathStage {
-        _FinalStage path(String path);
+        ContentLengthStage path(String path);
 
         Builder from(PrepareCustomAvatarUploadRequest other);
+    }
+
+    public interface ContentLengthStage {
+        _FinalStage contentLength(long contentLength);
     }
 
     public interface _FinalStage {
@@ -85,17 +89,13 @@ public final class PrepareCustomAvatarUploadRequest {
         _FinalStage mime(Optional<String> mime);
 
         _FinalStage mime(String mime);
-
-        _FinalStage contentLength(Optional<Long> contentLength);
-
-        _FinalStage contentLength(Long contentLength);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements PathStage, _FinalStage {
+    public static final class Builder implements PathStage, ContentLengthStage, _FinalStage {
         private String path;
 
-        private Optional<Long> contentLength = Optional.empty();
+        private long contentLength;
 
         private Optional<String> mime = Optional.empty();
 
@@ -115,7 +115,7 @@ public final class PrepareCustomAvatarUploadRequest {
          */
         @Override
         @JsonSetter("path")
-        public _FinalStage path(String path) {
+        public ContentLengthStage path(String path) {
             this.path = path;
             return this;
         }
@@ -125,14 +125,8 @@ public final class PrepareCustomAvatarUploadRequest {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
-        public _FinalStage contentLength(Long contentLength) {
-            this.contentLength = Optional.of(contentLength);
-            return this;
-        }
-
-        @Override
-        @JsonSetter(value = "content_length", nulls = Nulls.SKIP)
-        public _FinalStage contentLength(Optional<Long> contentLength) {
+        @JsonSetter("content_length")
+        public _FinalStage contentLength(long contentLength) {
             this.contentLength = contentLength;
             return this;
         }

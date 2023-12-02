@@ -13,46 +13,64 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(builder = GameModeCreateConfig.Builder.class)
 public final class GameModeCreateConfig {
-    private final GameModeIdentityRequirement identityRequirement;
+    private final boolean enabled;
 
-    private final Optional<GameModeVerificationConfig> verificationConfig;
+    private final Optional<GameModeIdentityRequirement> identityRequirement;
 
-    private final boolean enablePublic;
+    private final Optional<GameModeVerificationConfig> verification;
 
-    private final boolean enablePrivate;
+    private final Optional<Boolean> enablePublic;
+
+    private final Optional<Boolean> enablePrivate;
 
     private final Optional<Integer> maxLobbiesPerIdentity;
 
     private GameModeCreateConfig(
-            GameModeIdentityRequirement identityRequirement,
-            Optional<GameModeVerificationConfig> verificationConfig,
-            boolean enablePublic,
-            boolean enablePrivate,
+            boolean enabled,
+            Optional<GameModeIdentityRequirement> identityRequirement,
+            Optional<GameModeVerificationConfig> verification,
+            Optional<Boolean> enablePublic,
+            Optional<Boolean> enablePrivate,
             Optional<Integer> maxLobbiesPerIdentity) {
+        this.enabled = enabled;
         this.identityRequirement = identityRequirement;
-        this.verificationConfig = verificationConfig;
+        this.verification = verification;
         this.enablePublic = enablePublic;
         this.enablePrivate = enablePrivate;
         this.maxLobbiesPerIdentity = maxLobbiesPerIdentity;
     }
 
+    /**
+     * @return Sets whether or not the /create endpoint is enabled.
+     */
+    @JsonProperty("enabled")
+    public boolean getEnabled() {
+        return enabled;
+    }
+
     @JsonProperty("identity_requirement")
-    public GameModeIdentityRequirement getIdentityRequirement() {
+    public Optional<GameModeIdentityRequirement> getIdentityRequirement() {
         return identityRequirement;
     }
 
-    @JsonProperty("verification_config")
-    public Optional<GameModeVerificationConfig> getVerificationConfig() {
-        return verificationConfig;
+    @JsonProperty("verification")
+    public Optional<GameModeVerificationConfig> getVerification() {
+        return verification;
     }
 
+    /**
+     * @return Defaults to false when unset.
+     */
     @JsonProperty("enable_public")
-    public boolean getEnablePublic() {
+    public Optional<Boolean> getEnablePublic() {
         return enablePublic;
     }
 
+    /**
+     * @return Defaults to true when unset.
+     */
     @JsonProperty("enable_private")
-    public boolean getEnablePrivate() {
+    public Optional<Boolean> getEnablePrivate() {
         return enablePrivate;
     }
 
@@ -68,18 +86,20 @@ public final class GameModeCreateConfig {
     }
 
     private boolean equalTo(GameModeCreateConfig other) {
-        return identityRequirement.equals(other.identityRequirement)
-                && verificationConfig.equals(other.verificationConfig)
-                && enablePublic == other.enablePublic
-                && enablePrivate == other.enablePrivate
+        return enabled == other.enabled
+                && identityRequirement.equals(other.identityRequirement)
+                && verification.equals(other.verification)
+                && enablePublic.equals(other.enablePublic)
+                && enablePrivate.equals(other.enablePrivate)
                 && maxLobbiesPerIdentity.equals(other.maxLobbiesPerIdentity);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+                this.enabled,
                 this.identityRequirement,
-                this.verificationConfig,
+                this.verification,
                 this.enablePublic,
                 this.enablePrivate,
                 this.maxLobbiesPerIdentity);
@@ -90,30 +110,34 @@ public final class GameModeCreateConfig {
         return ObjectMappers.stringify(this);
     }
 
-    public static IdentityRequirementStage builder() {
+    public static EnabledStage builder() {
         return new Builder();
     }
 
-    public interface IdentityRequirementStage {
-        EnablePublicStage identityRequirement(GameModeIdentityRequirement identityRequirement);
+    public interface EnabledStage {
+        _FinalStage enabled(boolean enabled);
 
         Builder from(GameModeCreateConfig other);
-    }
-
-    public interface EnablePublicStage {
-        EnablePrivateStage enablePublic(boolean enablePublic);
-    }
-
-    public interface EnablePrivateStage {
-        _FinalStage enablePrivate(boolean enablePrivate);
     }
 
     public interface _FinalStage {
         GameModeCreateConfig build();
 
-        _FinalStage verificationConfig(Optional<GameModeVerificationConfig> verificationConfig);
+        _FinalStage identityRequirement(Optional<GameModeIdentityRequirement> identityRequirement);
 
-        _FinalStage verificationConfig(GameModeVerificationConfig verificationConfig);
+        _FinalStage identityRequirement(GameModeIdentityRequirement identityRequirement);
+
+        _FinalStage verification(Optional<GameModeVerificationConfig> verification);
+
+        _FinalStage verification(GameModeVerificationConfig verification);
+
+        _FinalStage enablePublic(Optional<Boolean> enablePublic);
+
+        _FinalStage enablePublic(Boolean enablePublic);
+
+        _FinalStage enablePrivate(Optional<Boolean> enablePrivate);
+
+        _FinalStage enablePrivate(Boolean enablePrivate);
 
         _FinalStage maxLobbiesPerIdentity(Optional<Integer> maxLobbiesPerIdentity);
 
@@ -121,48 +145,40 @@ public final class GameModeCreateConfig {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder
-            implements IdentityRequirementStage, EnablePublicStage, EnablePrivateStage, _FinalStage {
-        private GameModeIdentityRequirement identityRequirement;
-
-        private boolean enablePublic;
-
-        private boolean enablePrivate;
+    public static final class Builder implements EnabledStage, _FinalStage {
+        private boolean enabled;
 
         private Optional<Integer> maxLobbiesPerIdentity = Optional.empty();
 
-        private Optional<GameModeVerificationConfig> verificationConfig = Optional.empty();
+        private Optional<Boolean> enablePrivate = Optional.empty();
+
+        private Optional<Boolean> enablePublic = Optional.empty();
+
+        private Optional<GameModeVerificationConfig> verification = Optional.empty();
+
+        private Optional<GameModeIdentityRequirement> identityRequirement = Optional.empty();
 
         private Builder() {}
 
         @Override
         public Builder from(GameModeCreateConfig other) {
+            enabled(other.getEnabled());
             identityRequirement(other.getIdentityRequirement());
-            verificationConfig(other.getVerificationConfig());
+            verification(other.getVerification());
             enablePublic(other.getEnablePublic());
             enablePrivate(other.getEnablePrivate());
             maxLobbiesPerIdentity(other.getMaxLobbiesPerIdentity());
             return this;
         }
 
+        /**
+         * <p>Sets whether or not the /create endpoint is enabled.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @Override
-        @JsonSetter("identity_requirement")
-        public EnablePublicStage identityRequirement(GameModeIdentityRequirement identityRequirement) {
-            this.identityRequirement = identityRequirement;
-            return this;
-        }
-
-        @Override
-        @JsonSetter("enable_public")
-        public EnablePrivateStage enablePublic(boolean enablePublic) {
-            this.enablePublic = enablePublic;
-            return this;
-        }
-
-        @Override
-        @JsonSetter("enable_private")
-        public _FinalStage enablePrivate(boolean enablePrivate) {
-            this.enablePrivate = enablePrivate;
+        @JsonSetter("enabled")
+        public _FinalStage enabled(boolean enabled) {
+            this.enabled = enabled;
             return this;
         }
 
@@ -179,23 +195,70 @@ public final class GameModeCreateConfig {
             return this;
         }
 
+        /**
+         * <p>Defaults to true when unset.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @Override
-        public _FinalStage verificationConfig(GameModeVerificationConfig verificationConfig) {
-            this.verificationConfig = Optional.of(verificationConfig);
+        public _FinalStage enablePrivate(Boolean enablePrivate) {
+            this.enablePrivate = Optional.of(enablePrivate);
             return this;
         }
 
         @Override
-        @JsonSetter(value = "verification_config", nulls = Nulls.SKIP)
-        public _FinalStage verificationConfig(Optional<GameModeVerificationConfig> verificationConfig) {
-            this.verificationConfig = verificationConfig;
+        @JsonSetter(value = "enable_private", nulls = Nulls.SKIP)
+        public _FinalStage enablePrivate(Optional<Boolean> enablePrivate) {
+            this.enablePrivate = enablePrivate;
+            return this;
+        }
+
+        /**
+         * <p>Defaults to false when unset.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        public _FinalStage enablePublic(Boolean enablePublic) {
+            this.enablePublic = Optional.of(enablePublic);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "enable_public", nulls = Nulls.SKIP)
+        public _FinalStage enablePublic(Optional<Boolean> enablePublic) {
+            this.enablePublic = enablePublic;
+            return this;
+        }
+
+        @Override
+        public _FinalStage verification(GameModeVerificationConfig verification) {
+            this.verification = Optional.of(verification);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "verification", nulls = Nulls.SKIP)
+        public _FinalStage verification(Optional<GameModeVerificationConfig> verification) {
+            this.verification = verification;
+            return this;
+        }
+
+        @Override
+        public _FinalStage identityRequirement(GameModeIdentityRequirement identityRequirement) {
+            this.identityRequirement = Optional.of(identityRequirement);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "identity_requirement", nulls = Nulls.SKIP)
+        public _FinalStage identityRequirement(Optional<GameModeIdentityRequirement> identityRequirement) {
+            this.identityRequirement = identityRequirement;
             return this;
         }
 
         @Override
         public GameModeCreateConfig build() {
             return new GameModeCreateConfig(
-                    identityRequirement, verificationConfig, enablePublic, enablePrivate, maxLobbiesPerIdentity);
+                    enabled, identityRequirement, verification, enablePublic, enablePrivate, maxLobbiesPerIdentity);
         }
     }
 }

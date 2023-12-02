@@ -25,9 +25,9 @@ public class AnalyticsClient {
 
     public GetAnalyticsMatchmakerLiveResponse getAnalyticsMatchmakerLive(
             UUID gameId, UUID namespaceId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
                 .addPathSegment(namespaceId.toString())

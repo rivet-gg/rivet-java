@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.rivet.api.core.ObjectMappers;
 import com.rivet.api.resources.common.types.WatchResponse;
-import com.rivet.api.resources.group.common.types.Handle;
+import com.rivet.api.resources.game.common.types.Summary;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,13 +16,14 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(builder = GetGamesResponse.Builder.class)
 public final class GetGamesResponse {
-    private final List<GameSummary> games;
+    private final List<Summary> games;
 
-    private final List<Handle> groups;
+    private final List<com.rivet.api.resources.group.common.types.Summary> groups;
 
     private final WatchResponse watch;
 
-    private GetGamesResponse(List<GameSummary> games, List<Handle> groups, WatchResponse watch) {
+    private GetGamesResponse(
+            List<Summary> games, List<com.rivet.api.resources.group.common.types.Summary> groups, WatchResponse watch) {
         this.games = games;
         this.groups = groups;
         this.watch = watch;
@@ -32,7 +33,7 @@ public final class GetGamesResponse {
      * @return A list of game summaries.
      */
     @JsonProperty("games")
-    public List<GameSummary> getGames() {
+    public List<Summary> getGames() {
         return games;
     }
 
@@ -40,7 +41,7 @@ public final class GetGamesResponse {
      * @return A list of group summaries.
      */
     @JsonProperty("groups")
-    public List<Handle> getGroups() {
+    public List<com.rivet.api.resources.group.common.types.Summary> getGroups() {
         return groups;
     }
 
@@ -82,26 +83,26 @@ public final class GetGamesResponse {
     public interface _FinalStage {
         GetGamesResponse build();
 
-        _FinalStage games(List<GameSummary> games);
+        _FinalStage games(List<Summary> games);
 
-        _FinalStage addGames(GameSummary games);
+        _FinalStage addGames(Summary games);
 
-        _FinalStage addAllGames(List<GameSummary> games);
+        _FinalStage addAllGames(List<Summary> games);
 
-        _FinalStage groups(List<Handle> groups);
+        _FinalStage groups(List<com.rivet.api.resources.group.common.types.Summary> groups);
 
-        _FinalStage addGroups(Handle groups);
+        _FinalStage addGroups(com.rivet.api.resources.group.common.types.Summary groups);
 
-        _FinalStage addAllGroups(List<Handle> groups);
+        _FinalStage addAllGroups(List<com.rivet.api.resources.group.common.types.Summary> groups);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements WatchStage, _FinalStage {
         private WatchResponse watch;
 
-        private List<Handle> groups = new ArrayList<>();
+        private List<com.rivet.api.resources.group.common.types.Summary> groups = new ArrayList<>();
 
-        private List<GameSummary> games = new ArrayList<>();
+        private List<Summary> games = new ArrayList<>();
 
         private Builder() {}
 
@@ -125,7 +126,7 @@ public final class GetGamesResponse {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
-        public _FinalStage addAllGroups(List<Handle> groups) {
+        public _FinalStage addAllGroups(List<com.rivet.api.resources.group.common.types.Summary> groups) {
             this.groups.addAll(groups);
             return this;
         }
@@ -135,14 +136,14 @@ public final class GetGamesResponse {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
-        public _FinalStage addGroups(Handle groups) {
+        public _FinalStage addGroups(com.rivet.api.resources.group.common.types.Summary groups) {
             this.groups.add(groups);
             return this;
         }
 
         @Override
         @JsonSetter(value = "groups", nulls = Nulls.SKIP)
-        public _FinalStage groups(List<Handle> groups) {
+        public _FinalStage groups(List<com.rivet.api.resources.group.common.types.Summary> groups) {
             this.groups.clear();
             this.groups.addAll(groups);
             return this;
@@ -153,7 +154,7 @@ public final class GetGamesResponse {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
-        public _FinalStage addAllGames(List<GameSummary> games) {
+        public _FinalStage addAllGames(List<Summary> games) {
             this.games.addAll(games);
             return this;
         }
@@ -163,14 +164,14 @@ public final class GetGamesResponse {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
-        public _FinalStage addGames(GameSummary games) {
+        public _FinalStage addGames(Summary games) {
             this.games.add(games);
             return this;
         }
 
         @Override
         @JsonSetter(value = "games", nulls = Nulls.SKIP)
-        public _FinalStage games(List<GameSummary> games) {
+        public _FinalStage games(List<Summary> games) {
             this.games.clear();
             this.games.addAll(games);
             return this;

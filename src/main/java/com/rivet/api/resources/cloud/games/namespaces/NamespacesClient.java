@@ -56,8 +56,9 @@ public class NamespacesClient {
 
     public CreateGameNamespaceResponse createGameNamespace(
             UUID gameId, CreateGameNamespaceRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -95,8 +96,9 @@ public class NamespacesClient {
 
     public ValidateGameNamespaceResponse validateGameNamespace(
             UUID gameId, ValidateGameNamespaceRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces/validate")
@@ -134,8 +136,9 @@ public class NamespacesClient {
 
     public GetGameNamespaceByIdResponse getGameNamespaceById(
             UUID gameId, UUID namespaceId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -167,8 +170,9 @@ public class NamespacesClient {
 
     public void updateNamespaceCdnAuthUser(
             UUID gameId, UUID namespaceId, UpdateNamespaceCdnAuthUserRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -206,8 +210,9 @@ public class NamespacesClient {
     }
 
     public void removeNamespaceCdnAuthUser(UUID gameId, UUID namespaceId, String user, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -239,8 +244,9 @@ public class NamespacesClient {
 
     public void setNamespaceCdnAuthType(
             UUID gameId, UUID namespaceId, SetNamespaceCdnAuthTypeRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -283,8 +289,9 @@ public class NamespacesClient {
             UUID namespaceId,
             ToggleNamespaceDomainPublicAuthRequest request,
             RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -323,8 +330,9 @@ public class NamespacesClient {
 
     public void addNamespaceDomain(
             UUID gameId, UUID namespaceId, AddNamespaceDomainRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -362,8 +370,9 @@ public class NamespacesClient {
     }
 
     public void removeNamespaceDomain(UUID gameId, UUID namespaceId, String domain, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -399,8 +408,9 @@ public class NamespacesClient {
             UUID namespaceId,
             UpdateGameNamespaceMatchmakerConfigRequest request,
             RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -444,8 +454,9 @@ public class NamespacesClient {
             GetGameNamespaceVersionHistoryRequest request,
             RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId)
                 .addPathSegments("namespaces")
@@ -488,8 +499,9 @@ public class NamespacesClient {
             UUID namespaceId,
             ValidateGameNamespaceMatchmakerConfigRequest request,
             RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -533,8 +545,9 @@ public class NamespacesClient {
             UUID namespaceId,
             CreateGameNamespaceTokenDevelopmentRequest request,
             RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -578,8 +591,9 @@ public class NamespacesClient {
             UUID namespaceId,
             ValidateGameNamespaceTokenDevelopmentRequest request,
             RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -619,8 +633,9 @@ public class NamespacesClient {
 
     public CreateGameNamespaceTokenPublicResponse createGameNamespaceTokenPublic(
             UUID gameId, UUID namespaceId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
@@ -653,8 +668,9 @@ public class NamespacesClient {
 
     public void updateGameNamespaceVersion(
             UUID gameId, UUID namespaceId, UpdateGameNamespaceVersionRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")

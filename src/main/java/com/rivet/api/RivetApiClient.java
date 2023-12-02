@@ -2,7 +2,7 @@ package com.rivet.api;
 
 import com.rivet.api.core.ClientOptions;
 import com.rivet.api.core.Suppliers;
-import com.rivet.api.resources.chat.ChatClient;
+import com.rivet.api.resources.admin.AdminClient;
 import com.rivet.api.resources.cloud.CloudClient;
 import com.rivet.api.resources.group.GroupClient;
 import com.rivet.api.resources.identity.IdentityClient;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class RivetApiClient {
     protected final ClientOptions clientOptions;
 
-    protected final Supplier<ChatClient> chatClient;
+    protected final Supplier<AdminClient> adminClient;
 
     protected final Supplier<CloudClient> cloudClient;
 
@@ -30,7 +30,7 @@ public class RivetApiClient {
 
     public RivetApiClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
-        this.chatClient = Suppliers.memoize(() -> new ChatClient(clientOptions));
+        this.adminClient = Suppliers.memoize(() -> new AdminClient(clientOptions));
         this.cloudClient = Suppliers.memoize(() -> new CloudClient(clientOptions));
         this.groupClient = Suppliers.memoize(() -> new GroupClient(clientOptions));
         this.identityClient = Suppliers.memoize(() -> new IdentityClient(clientOptions));
@@ -39,8 +39,8 @@ public class RivetApiClient {
         this.matchmakerClient = Suppliers.memoize(() -> new MatchmakerClient(clientOptions));
     }
 
-    public ChatClient chat() {
-        return this.chatClient.get();
+    public AdminClient admin() {
+        return this.adminClient.get();
     }
 
     public CloudClient cloud() {

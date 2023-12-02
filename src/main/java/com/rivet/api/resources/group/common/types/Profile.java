@@ -42,8 +42,6 @@ public final class Profile {
 
     private final UUID ownerIdentityId;
 
-    private final Optional<UUID> threadId;
-
     private Profile(
             UUID groupId,
             String displayName,
@@ -57,8 +55,7 @@ public final class Profile {
             List<Member> members,
             List<JoinRequest> joinRequests,
             Optional<Boolean> isCurrentIdentityRequestingJoin,
-            UUID ownerIdentityId,
-            Optional<UUID> threadId) {
+            UUID ownerIdentityId) {
         this.groupId = groupId;
         this.displayName = displayName;
         this.avatarUrl = avatarUrl;
@@ -72,7 +69,6 @@ public final class Profile {
         this.joinRequests = joinRequests;
         this.isCurrentIdentityRequestingJoin = isCurrentIdentityRequestingJoin;
         this.ownerIdentityId = ownerIdentityId;
-        this.threadId = threadId;
     }
 
     @JsonProperty("group_id")
@@ -167,11 +163,6 @@ public final class Profile {
         return ownerIdentityId;
     }
 
-    @JsonProperty("thread_id")
-    public Optional<UUID> getThreadId() {
-        return threadId;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -191,8 +182,7 @@ public final class Profile {
                 && members.equals(other.members)
                 && joinRequests.equals(other.joinRequests)
                 && isCurrentIdentityRequestingJoin.equals(other.isCurrentIdentityRequestingJoin)
-                && ownerIdentityId.equals(other.ownerIdentityId)
-                && threadId.equals(other.threadId);
+                && ownerIdentityId.equals(other.ownerIdentityId);
     }
 
     @Override
@@ -210,8 +200,7 @@ public final class Profile {
                 this.members,
                 this.joinRequests,
                 this.isCurrentIdentityRequestingJoin,
-                this.ownerIdentityId,
-                this.threadId);
+                this.ownerIdentityId);
     }
 
     @Override
@@ -283,10 +272,6 @@ public final class Profile {
         _FinalStage isCurrentIdentityRequestingJoin(Optional<Boolean> isCurrentIdentityRequestingJoin);
 
         _FinalStage isCurrentIdentityRequestingJoin(Boolean isCurrentIdentityRequestingJoin);
-
-        _FinalStage threadId(Optional<UUID> threadId);
-
-        _FinalStage threadId(UUID threadId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -309,8 +294,6 @@ public final class Profile {
         private Publicity publicity;
 
         private UUID ownerIdentityId;
-
-        private Optional<UUID> threadId = Optional.empty();
 
         private Optional<Boolean> isCurrentIdentityRequestingJoin = Optional.empty();
 
@@ -343,7 +326,6 @@ public final class Profile {
             joinRequests(other.getJoinRequests());
             isCurrentIdentityRequestingJoin(other.getIsCurrentIdentityRequestingJoin());
             ownerIdentityId(other.getOwnerIdentityId());
-            threadId(other.getThreadId());
             return this;
         }
 
@@ -394,19 +376,6 @@ public final class Profile {
         @JsonSetter("owner_identity_id")
         public _FinalStage ownerIdentityId(UUID ownerIdentityId) {
             this.ownerIdentityId = ownerIdentityId;
-            return this;
-        }
-
-        @Override
-        public _FinalStage threadId(UUID threadId) {
-            this.threadId = Optional.of(threadId);
-            return this;
-        }
-
-        @Override
-        @JsonSetter(value = "thread_id", nulls = Nulls.SKIP)
-        public _FinalStage threadId(Optional<UUID> threadId) {
-            this.threadId = threadId;
             return this;
         }
 
@@ -566,8 +535,7 @@ public final class Profile {
                     members,
                     joinRequests,
                     isCurrentIdentityRequestingJoin,
-                    ownerIdentityId,
-                    threadId);
+                    ownerIdentityId);
         }
     }
 }

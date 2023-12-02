@@ -26,11 +26,11 @@ public final class GameMode {
 
     private final Optional<Boolean> listable;
 
-    private final Optional<GameModeFindConfig> findConfig;
+    private final Optional<Boolean> taggable;
 
-    private final Optional<GameModeJoinConfig> joinConfig;
+    private final Optional<Boolean> allowDynamicMaxPlayers;
 
-    private final Optional<GameModeCreateConfig> createConfig;
+    private final Optional<GameModeActions> actions;
 
     private final Optional<String> tier;
 
@@ -43,9 +43,9 @@ public final class GameMode {
             Optional<Integer> maxPlayersParty,
             Optional<GameModeRuntimeDocker> docker,
             Optional<Boolean> listable,
-            Optional<GameModeFindConfig> findConfig,
-            Optional<GameModeJoinConfig> joinConfig,
-            Optional<GameModeCreateConfig> createConfig,
+            Optional<Boolean> taggable,
+            Optional<Boolean> allowDynamicMaxPlayers,
+            Optional<GameModeActions> actions,
             Optional<String> tier,
             Optional<GameModeIdleLobbiesConfig> idleLobbies) {
         this.regions = regions;
@@ -54,9 +54,9 @@ public final class GameMode {
         this.maxPlayersParty = maxPlayersParty;
         this.docker = docker;
         this.listable = listable;
-        this.findConfig = findConfig;
-        this.joinConfig = joinConfig;
-        this.createConfig = createConfig;
+        this.taggable = taggable;
+        this.allowDynamicMaxPlayers = allowDynamicMaxPlayers;
+        this.actions = actions;
         this.tier = tier;
         this.idleLobbies = idleLobbies;
     }
@@ -91,19 +91,19 @@ public final class GameMode {
         return listable;
     }
 
-    @JsonProperty("find_config")
-    public Optional<GameModeFindConfig> getFindConfig() {
-        return findConfig;
+    @JsonProperty("taggable")
+    public Optional<Boolean> getTaggable() {
+        return taggable;
     }
 
-    @JsonProperty("join_config")
-    public Optional<GameModeJoinConfig> getJoinConfig() {
-        return joinConfig;
+    @JsonProperty("allow_dynamic_max_players")
+    public Optional<Boolean> getAllowDynamicMaxPlayers() {
+        return allowDynamicMaxPlayers;
     }
 
-    @JsonProperty("create_config")
-    public Optional<GameModeCreateConfig> getCreateConfig() {
-        return createConfig;
+    @JsonProperty("actions")
+    public Optional<GameModeActions> getActions() {
+        return actions;
     }
 
     @JsonProperty("tier")
@@ -129,9 +129,9 @@ public final class GameMode {
                 && maxPlayersParty.equals(other.maxPlayersParty)
                 && docker.equals(other.docker)
                 && listable.equals(other.listable)
-                && findConfig.equals(other.findConfig)
-                && joinConfig.equals(other.joinConfig)
-                && createConfig.equals(other.createConfig)
+                && taggable.equals(other.taggable)
+                && allowDynamicMaxPlayers.equals(other.allowDynamicMaxPlayers)
+                && actions.equals(other.actions)
                 && tier.equals(other.tier)
                 && idleLobbies.equals(other.idleLobbies);
     }
@@ -145,9 +145,9 @@ public final class GameMode {
                 this.maxPlayersParty,
                 this.docker,
                 this.listable,
-                this.findConfig,
-                this.joinConfig,
-                this.createConfig,
+                this.taggable,
+                this.allowDynamicMaxPlayers,
+                this.actions,
                 this.tier,
                 this.idleLobbies);
     }
@@ -175,11 +175,11 @@ public final class GameMode {
 
         private Optional<Boolean> listable = Optional.empty();
 
-        private Optional<GameModeFindConfig> findConfig = Optional.empty();
+        private Optional<Boolean> taggable = Optional.empty();
 
-        private Optional<GameModeJoinConfig> joinConfig = Optional.empty();
+        private Optional<Boolean> allowDynamicMaxPlayers = Optional.empty();
 
-        private Optional<GameModeCreateConfig> createConfig = Optional.empty();
+        private Optional<GameModeActions> actions = Optional.empty();
 
         private Optional<String> tier = Optional.empty();
 
@@ -194,9 +194,9 @@ public final class GameMode {
             maxPlayersParty(other.getMaxPlayersParty());
             docker(other.getDocker());
             listable(other.getListable());
-            findConfig(other.getFindConfig());
-            joinConfig(other.getJoinConfig());
-            createConfig(other.getCreateConfig());
+            taggable(other.getTaggable());
+            allowDynamicMaxPlayers(other.getAllowDynamicMaxPlayers());
+            actions(other.getActions());
             tier(other.getTier());
             idleLobbies(other.getIdleLobbies());
             return this;
@@ -268,36 +268,36 @@ public final class GameMode {
             return this;
         }
 
-        @JsonSetter(value = "find_config", nulls = Nulls.SKIP)
-        public Builder findConfig(Optional<GameModeFindConfig> findConfig) {
-            this.findConfig = findConfig;
+        @JsonSetter(value = "taggable", nulls = Nulls.SKIP)
+        public Builder taggable(Optional<Boolean> taggable) {
+            this.taggable = taggable;
             return this;
         }
 
-        public Builder findConfig(GameModeFindConfig findConfig) {
-            this.findConfig = Optional.of(findConfig);
+        public Builder taggable(Boolean taggable) {
+            this.taggable = Optional.of(taggable);
             return this;
         }
 
-        @JsonSetter(value = "join_config", nulls = Nulls.SKIP)
-        public Builder joinConfig(Optional<GameModeJoinConfig> joinConfig) {
-            this.joinConfig = joinConfig;
+        @JsonSetter(value = "allow_dynamic_max_players", nulls = Nulls.SKIP)
+        public Builder allowDynamicMaxPlayers(Optional<Boolean> allowDynamicMaxPlayers) {
+            this.allowDynamicMaxPlayers = allowDynamicMaxPlayers;
             return this;
         }
 
-        public Builder joinConfig(GameModeJoinConfig joinConfig) {
-            this.joinConfig = Optional.of(joinConfig);
+        public Builder allowDynamicMaxPlayers(Boolean allowDynamicMaxPlayers) {
+            this.allowDynamicMaxPlayers = Optional.of(allowDynamicMaxPlayers);
             return this;
         }
 
-        @JsonSetter(value = "create_config", nulls = Nulls.SKIP)
-        public Builder createConfig(Optional<GameModeCreateConfig> createConfig) {
-            this.createConfig = createConfig;
+        @JsonSetter(value = "actions", nulls = Nulls.SKIP)
+        public Builder actions(Optional<GameModeActions> actions) {
+            this.actions = actions;
             return this;
         }
 
-        public Builder createConfig(GameModeCreateConfig createConfig) {
-            this.createConfig = Optional.of(createConfig);
+        public Builder actions(GameModeActions actions) {
+            this.actions = Optional.of(actions);
             return this;
         }
 
@@ -331,9 +331,9 @@ public final class GameMode {
                     maxPlayersParty,
                     docker,
                     listable,
-                    findConfig,
-                    joinConfig,
-                    createConfig,
+                    taggable,
+                    allowDynamicMaxPlayers,
+                    actions,
                     tier,
                     idleLobbies);
         }

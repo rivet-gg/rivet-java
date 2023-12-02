@@ -26,9 +26,9 @@ public class LinksClient {
     }
 
     public PrepareDeviceLinkResponse prepare(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("devices/links")
+                .addPathSegments("cloud/devices/links")
                 .build();
         Request _request = new Request.Builder()
                 .url(_httpUrl)
@@ -55,9 +55,9 @@ public class LinksClient {
 
     public GetDeviceLinkResponse get(GetDeviceLinkRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("devices/links");
+                .addPathSegments("cloud/devices/links");
         _httpUrl.addQueryParameter("device_link_token", request.getDeviceLinkToken());
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());

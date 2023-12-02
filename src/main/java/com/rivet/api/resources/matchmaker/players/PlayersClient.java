@@ -29,9 +29,9 @@ public class PlayersClient {
     }
 
     public void connected(PlayerConnectedRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("players")
+                .addPathSegments("matchmaker/players")
                 .addPathSegments("connected")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -68,9 +68,9 @@ public class PlayersClient {
     }
 
     public void disconnected(PlayerDisconnectedRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("players")
+                .addPathSegments("matchmaker/players")
                 .addPathSegments("disconnected")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -107,9 +107,9 @@ public class PlayersClient {
     }
 
     public GetStatisticsResponse getStatistics(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("players")
+                .addPathSegments("matchmaker/players")
                 .addPathSegments("statistics")
                 .build();
         Request _request = new Request.Builder()

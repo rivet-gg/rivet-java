@@ -23,9 +23,9 @@ public class RegionsClient {
     }
 
     public ListRegionsResponse list(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("regions")
+                .addPathSegments("matchmaker/regions")
                 .build();
         Request _request = new Request.Builder()
                 .url(_httpUrl)

@@ -26,9 +26,9 @@ public class LinksClient {
     }
 
     public PrepareGameLinkResponse prepare(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("game-links")
+                .addPathSegments("identity/game-links")
                 .build();
         Request _request = new Request.Builder()
                 .url(_httpUrl)
@@ -55,9 +55,9 @@ public class LinksClient {
 
     public GetGameLinkResponse get(GetGameLinkRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("game-links");
+                .addPathSegments("identity/game-links");
         _httpUrl.addQueryParameter("identity_link_token", request.getIdentityLinkToken());
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());

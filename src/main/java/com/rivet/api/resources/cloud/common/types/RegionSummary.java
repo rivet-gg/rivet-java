@@ -18,7 +18,7 @@ public final class RegionSummary {
 
     private final String provider;
 
-    private final double universalRegion;
+    private final UniversalRegion universalRegion;
 
     private final String providerDisplayName;
 
@@ -28,7 +28,7 @@ public final class RegionSummary {
             UUID regionId,
             String regionNameId,
             String provider,
-            double universalRegion,
+            UniversalRegion universalRegion,
             String providerDisplayName,
             String regionDisplayName) {
         this.regionId = regionId;
@@ -61,10 +61,10 @@ public final class RegionSummary {
     }
 
     /**
-     * @return A universal number given to this region.
+     * @return A universal region label given to this region.
      */
     @JsonProperty("universal_region")
-    public double getUniversalRegion() {
+    public UniversalRegion getUniversalRegion() {
         return universalRegion;
     }
 
@@ -94,7 +94,7 @@ public final class RegionSummary {
         return regionId.equals(other.regionId)
                 && regionNameId.equals(other.regionNameId)
                 && provider.equals(other.provider)
-                && universalRegion == other.universalRegion
+                && universalRegion.equals(other.universalRegion)
                 && providerDisplayName.equals(other.providerDisplayName)
                 && regionDisplayName.equals(other.regionDisplayName);
     }
@@ -134,7 +134,7 @@ public final class RegionSummary {
     }
 
     public interface UniversalRegionStage {
-        ProviderDisplayNameStage universalRegion(double universalRegion);
+        ProviderDisplayNameStage universalRegion(UniversalRegion universalRegion);
     }
 
     public interface ProviderDisplayNameStage {
@@ -164,7 +164,7 @@ public final class RegionSummary {
 
         private String provider;
 
-        private double universalRegion;
+        private UniversalRegion universalRegion;
 
         private String providerDisplayName;
 
@@ -213,12 +213,12 @@ public final class RegionSummary {
         }
 
         /**
-         * <p>A universal number given to this region.</p>
+         * <p>A universal region label given to this region.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override
         @JsonSetter("universal_region")
-        public ProviderDisplayNameStage universalRegion(double universalRegion) {
+        public ProviderDisplayNameStage universalRegion(UniversalRegion universalRegion) {
             this.universalRegion = universalRegion;
             return this;
         }

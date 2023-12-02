@@ -4,20 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.rivet.api.core.ObjectMappers;
 import java.util.Objects;
-import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(builder = ExportMatchmakerLobbyHistoryRequest.Builder.class)
 public final class ExportMatchmakerLobbyHistoryRequest {
-    private final Optional<Long> queryStart;
+    private final long queryStart;
 
-    private final Optional<Long> queryEnd;
+    private final long queryEnd;
 
-    private ExportMatchmakerLobbyHistoryRequest(Optional<Long> queryStart, Optional<Long> queryEnd) {
+    private ExportMatchmakerLobbyHistoryRequest(long queryStart, long queryEnd) {
         this.queryStart = queryStart;
         this.queryEnd = queryEnd;
     }
@@ -26,7 +24,7 @@ public final class ExportMatchmakerLobbyHistoryRequest {
      * @return Unsigned 64 bit integer.
      */
     @JsonProperty("query_start")
-    public Optional<Long> getQueryStart() {
+    public long getQueryStart() {
         return queryStart;
     }
 
@@ -34,7 +32,7 @@ public final class ExportMatchmakerLobbyHistoryRequest {
      * @return Unsigned 64 bit integer.
      */
     @JsonProperty("query_end")
-    public Optional<Long> getQueryEnd() {
+    public long getQueryEnd() {
         return queryEnd;
     }
 
@@ -46,7 +44,7 @@ public final class ExportMatchmakerLobbyHistoryRequest {
     }
 
     private boolean equalTo(ExportMatchmakerLobbyHistoryRequest other) {
-        return queryStart.equals(other.queryStart) && queryEnd.equals(other.queryEnd);
+        return queryStart == other.queryStart && queryEnd == other.queryEnd;
     }
 
     @Override
@@ -59,46 +57,62 @@ public final class ExportMatchmakerLobbyHistoryRequest {
         return ObjectMappers.stringify(this);
     }
 
-    public static Builder builder() {
+    public static QueryStartStage builder() {
         return new Builder();
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder {
-        private Optional<Long> queryStart = Optional.empty();
+    public interface QueryStartStage {
+        QueryEndStage queryStart(long queryStart);
 
-        private Optional<Long> queryEnd = Optional.empty();
+        Builder from(ExportMatchmakerLobbyHistoryRequest other);
+    }
+
+    public interface QueryEndStage {
+        _FinalStage queryEnd(long queryEnd);
+    }
+
+    public interface _FinalStage {
+        ExportMatchmakerLobbyHistoryRequest build();
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static final class Builder implements QueryStartStage, QueryEndStage, _FinalStage {
+        private long queryStart;
+
+        private long queryEnd;
 
         private Builder() {}
 
+        @Override
         public Builder from(ExportMatchmakerLobbyHistoryRequest other) {
             queryStart(other.getQueryStart());
             queryEnd(other.getQueryEnd());
             return this;
         }
 
-        @JsonSetter(value = "query_start", nulls = Nulls.SKIP)
-        public Builder queryStart(Optional<Long> queryStart) {
+        /**
+         * <p>Unsigned 64 bit integer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        @JsonSetter("query_start")
+        public QueryEndStage queryStart(long queryStart) {
             this.queryStart = queryStart;
             return this;
         }
 
-        public Builder queryStart(Long queryStart) {
-            this.queryStart = Optional.of(queryStart);
-            return this;
-        }
-
-        @JsonSetter(value = "query_end", nulls = Nulls.SKIP)
-        public Builder queryEnd(Optional<Long> queryEnd) {
+        /**
+         * <p>Unsigned 64 bit integer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @Override
+        @JsonSetter("query_end")
+        public _FinalStage queryEnd(long queryEnd) {
             this.queryEnd = queryEnd;
             return this;
         }
 
-        public Builder queryEnd(Long queryEnd) {
-            this.queryEnd = Optional.of(queryEnd);
-            return this;
-        }
-
+        @Override
         public ExportMatchmakerLobbyHistoryRequest build() {
             return new ExportMatchmakerLobbyHistoryRequest(queryStart, queryEnd);
         }

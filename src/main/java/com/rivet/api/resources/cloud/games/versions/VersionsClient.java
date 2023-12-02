@@ -31,9 +31,9 @@ public class VersionsClient {
 
     public CreateGameVersionResponse createGameVersion(
             UUID gameId, CreateGameVersionRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("versions")
                 .build();
@@ -69,9 +69,9 @@ public class VersionsClient {
 
     public ValidateGameVersionResponse validateGameVersion(
             UUID gameId, ValidateGameVersionRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("versions")
                 .addPathSegments("validate")
@@ -108,9 +108,9 @@ public class VersionsClient {
     }
 
     public GetGameVersionByIdResponse getGameVersionById(UUID gameId, UUID versionId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("versions")
                 .addPathSegment(versionId.toString())

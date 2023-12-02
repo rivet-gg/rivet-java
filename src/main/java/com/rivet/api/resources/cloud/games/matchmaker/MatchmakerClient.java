@@ -34,9 +34,9 @@ public class MatchmakerClient {
 
     public ExportMatchmakerLobbyHistoryResponse exportMatchmakerLobbyHistory(
             UUID gameId, ExportMatchmakerLobbyHistoryRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("export-history")
@@ -74,9 +74,9 @@ public class MatchmakerClient {
 
     public DeleteMatchmakerLobbyResponse deleteMatchmakerLobby(
             UUID gameId, UUID lobbyId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("matchmaker/lobbies")
                 .addPathSegment(lobbyId.toString())
@@ -108,9 +108,9 @@ public class MatchmakerClient {
     public GetLobbyLogsResponse getLobbyLogs(
             UUID gameId, UUID lobbyId, GetLobbyLogsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("matchmaker/lobbies")
                 .addPathSegment(lobbyId.toString())
@@ -145,9 +145,9 @@ public class MatchmakerClient {
 
     public ExportLobbyLogsResponse exportLobbyLogs(
             UUID gameId, UUID lobbyId, ExportLobbyLogsRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("matchmaker/lobbies")
                 .addPathSegment(lobbyId.toString())

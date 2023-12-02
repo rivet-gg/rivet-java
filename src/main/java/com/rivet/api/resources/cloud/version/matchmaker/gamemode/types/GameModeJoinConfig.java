@@ -15,17 +15,17 @@ import java.util.Optional;
 public final class GameModeJoinConfig {
     private final boolean enabled;
 
-    private final GameModeIdentityRequirement identityRequirement;
+    private final Optional<GameModeIdentityRequirement> identityRequirement;
 
-    private final Optional<GameModeVerificationConfig> verificationConfig;
+    private final Optional<GameModeVerificationConfig> verification;
 
     private GameModeJoinConfig(
             boolean enabled,
-            GameModeIdentityRequirement identityRequirement,
-            Optional<GameModeVerificationConfig> verificationConfig) {
+            Optional<GameModeIdentityRequirement> identityRequirement,
+            Optional<GameModeVerificationConfig> verification) {
         this.enabled = enabled;
         this.identityRequirement = identityRequirement;
-        this.verificationConfig = verificationConfig;
+        this.verification = verification;
     }
 
     /**
@@ -37,13 +37,13 @@ public final class GameModeJoinConfig {
     }
 
     @JsonProperty("identity_requirement")
-    public GameModeIdentityRequirement getIdentityRequirement() {
+    public Optional<GameModeIdentityRequirement> getIdentityRequirement() {
         return identityRequirement;
     }
 
-    @JsonProperty("verification_config")
-    public Optional<GameModeVerificationConfig> getVerificationConfig() {
-        return verificationConfig;
+    @JsonProperty("verification")
+    public Optional<GameModeVerificationConfig> getVerification() {
+        return verification;
     }
 
     @Override
@@ -55,12 +55,12 @@ public final class GameModeJoinConfig {
     private boolean equalTo(GameModeJoinConfig other) {
         return enabled == other.enabled
                 && identityRequirement.equals(other.identityRequirement)
-                && verificationConfig.equals(other.verificationConfig);
+                && verification.equals(other.verification);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.enabled, this.identityRequirement, this.verificationConfig);
+        return Objects.hash(this.enabled, this.identityRequirement, this.verification);
     }
 
     @Override
@@ -73,30 +73,30 @@ public final class GameModeJoinConfig {
     }
 
     public interface EnabledStage {
-        IdentityRequirementStage enabled(boolean enabled);
+        _FinalStage enabled(boolean enabled);
 
         Builder from(GameModeJoinConfig other);
-    }
-
-    public interface IdentityRequirementStage {
-        _FinalStage identityRequirement(GameModeIdentityRequirement identityRequirement);
     }
 
     public interface _FinalStage {
         GameModeJoinConfig build();
 
-        _FinalStage verificationConfig(Optional<GameModeVerificationConfig> verificationConfig);
+        _FinalStage identityRequirement(Optional<GameModeIdentityRequirement> identityRequirement);
 
-        _FinalStage verificationConfig(GameModeVerificationConfig verificationConfig);
+        _FinalStage identityRequirement(GameModeIdentityRequirement identityRequirement);
+
+        _FinalStage verification(Optional<GameModeVerificationConfig> verification);
+
+        _FinalStage verification(GameModeVerificationConfig verification);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements EnabledStage, IdentityRequirementStage, _FinalStage {
+    public static final class Builder implements EnabledStage, _FinalStage {
         private boolean enabled;
 
-        private GameModeIdentityRequirement identityRequirement;
+        private Optional<GameModeVerificationConfig> verification = Optional.empty();
 
-        private Optional<GameModeVerificationConfig> verificationConfig = Optional.empty();
+        private Optional<GameModeIdentityRequirement> identityRequirement = Optional.empty();
 
         private Builder() {}
 
@@ -104,7 +104,7 @@ public final class GameModeJoinConfig {
         public Builder from(GameModeJoinConfig other) {
             enabled(other.getEnabled());
             identityRequirement(other.getIdentityRequirement());
-            verificationConfig(other.getVerificationConfig());
+            verification(other.getVerification());
             return this;
         }
 
@@ -114,34 +114,40 @@ public final class GameModeJoinConfig {
          */
         @Override
         @JsonSetter("enabled")
-        public IdentityRequirementStage enabled(boolean enabled) {
+        public _FinalStage enabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
 
         @Override
-        @JsonSetter("identity_requirement")
+        public _FinalStage verification(GameModeVerificationConfig verification) {
+            this.verification = Optional.of(verification);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "verification", nulls = Nulls.SKIP)
+        public _FinalStage verification(Optional<GameModeVerificationConfig> verification) {
+            this.verification = verification;
+            return this;
+        }
+
+        @Override
         public _FinalStage identityRequirement(GameModeIdentityRequirement identityRequirement) {
+            this.identityRequirement = Optional.of(identityRequirement);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "identity_requirement", nulls = Nulls.SKIP)
+        public _FinalStage identityRequirement(Optional<GameModeIdentityRequirement> identityRequirement) {
             this.identityRequirement = identityRequirement;
             return this;
         }
 
         @Override
-        public _FinalStage verificationConfig(GameModeVerificationConfig verificationConfig) {
-            this.verificationConfig = Optional.of(verificationConfig);
-            return this;
-        }
-
-        @Override
-        @JsonSetter(value = "verification_config", nulls = Nulls.SKIP)
-        public _FinalStage verificationConfig(Optional<GameModeVerificationConfig> verificationConfig) {
-            this.verificationConfig = verificationConfig;
-            return this;
-        }
-
-        @Override
         public GameModeJoinConfig build() {
-            return new GameModeJoinConfig(enabled, identityRequirement, verificationConfig);
+            return new GameModeJoinConfig(enabled, identityRequirement, verification);
         }
     }
 }

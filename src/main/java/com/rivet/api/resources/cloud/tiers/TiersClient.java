@@ -23,9 +23,9 @@ public class TiersClient {
     }
 
     public GetRegionTiersResponse getRegionTiers(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("region-tiers")
+                .addPathSegments("cloud/region-tiers")
                 .build();
         Request _request = new Request.Builder()
                 .url(_httpUrl)

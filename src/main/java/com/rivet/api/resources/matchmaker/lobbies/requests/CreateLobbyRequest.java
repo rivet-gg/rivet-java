@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.rivet.api.core.ObjectMappers;
 import com.rivet.api.resources.captcha.config.types.Config;
 import com.rivet.api.resources.matchmaker.common.types.CustomLobbyPublicity;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,26 +20,34 @@ public final class CreateLobbyRequest {
 
     private final Optional<String> region;
 
-    private final Optional<Config> captcha;
+    private final Optional<CustomLobbyPublicity> publicity;
 
-    private final CustomLobbyPublicity publicity;
+    private final Optional<Map<String, String>> tags;
+
+    private final Optional<Integer> maxPlayers;
 
     private final Optional<Object> lobbyConfig;
+
+    private final Optional<Config> captcha;
 
     private final Optional<Object> verificationData;
 
     private CreateLobbyRequest(
             String gameMode,
             Optional<String> region,
-            Optional<Config> captcha,
-            CustomLobbyPublicity publicity,
+            Optional<CustomLobbyPublicity> publicity,
+            Optional<Map<String, String>> tags,
+            Optional<Integer> maxPlayers,
             Optional<Object> lobbyConfig,
+            Optional<Config> captcha,
             Optional<Object> verificationData) {
         this.gameMode = gameMode;
         this.region = region;
-        this.captcha = captcha;
         this.publicity = publicity;
+        this.tags = tags;
+        this.maxPlayers = maxPlayers;
         this.lobbyConfig = lobbyConfig;
+        this.captcha = captcha;
         this.verificationData = verificationData;
     }
 
@@ -52,19 +61,29 @@ public final class CreateLobbyRequest {
         return region;
     }
 
-    @JsonProperty("captcha")
-    public Optional<Config> getCaptcha() {
-        return captcha;
+    @JsonProperty("publicity")
+    public Optional<CustomLobbyPublicity> getPublicity() {
+        return publicity;
     }
 
-    @JsonProperty("publicity")
-    public CustomLobbyPublicity getPublicity() {
-        return publicity;
+    @JsonProperty("tags")
+    public Optional<Map<String, String>> getTags() {
+        return tags;
+    }
+
+    @JsonProperty("max_players")
+    public Optional<Integer> getMaxPlayers() {
+        return maxPlayers;
     }
 
     @JsonProperty("lobby_config")
     public Optional<Object> getLobbyConfig() {
         return lobbyConfig;
+    }
+
+    @JsonProperty("captcha")
+    public Optional<Config> getCaptcha() {
+        return captcha;
     }
 
     @JsonProperty("verification_data")
@@ -81,16 +100,25 @@ public final class CreateLobbyRequest {
     private boolean equalTo(CreateLobbyRequest other) {
         return gameMode.equals(other.gameMode)
                 && region.equals(other.region)
-                && captcha.equals(other.captcha)
                 && publicity.equals(other.publicity)
+                && tags.equals(other.tags)
+                && maxPlayers.equals(other.maxPlayers)
                 && lobbyConfig.equals(other.lobbyConfig)
+                && captcha.equals(other.captcha)
                 && verificationData.equals(other.verificationData);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.gameMode, this.region, this.captcha, this.publicity, this.lobbyConfig, this.verificationData);
+                this.gameMode,
+                this.region,
+                this.publicity,
+                this.tags,
+                this.maxPlayers,
+                this.lobbyConfig,
+                this.captcha,
+                this.verificationData);
     }
 
     @Override
@@ -103,13 +131,9 @@ public final class CreateLobbyRequest {
     }
 
     public interface GameModeStage {
-        PublicityStage gameMode(String gameMode);
+        _FinalStage gameMode(String gameMode);
 
         Builder from(CreateLobbyRequest other);
-    }
-
-    public interface PublicityStage {
-        _FinalStage publicity(CustomLobbyPublicity publicity);
     }
 
     public interface _FinalStage {
@@ -119,13 +143,25 @@ public final class CreateLobbyRequest {
 
         _FinalStage region(String region);
 
-        _FinalStage captcha(Optional<Config> captcha);
+        _FinalStage publicity(Optional<CustomLobbyPublicity> publicity);
 
-        _FinalStage captcha(Config captcha);
+        _FinalStage publicity(CustomLobbyPublicity publicity);
+
+        _FinalStage tags(Optional<Map<String, String>> tags);
+
+        _FinalStage tags(Map<String, String> tags);
+
+        _FinalStage maxPlayers(Optional<Integer> maxPlayers);
+
+        _FinalStage maxPlayers(Integer maxPlayers);
 
         _FinalStage lobbyConfig(Optional<Object> lobbyConfig);
 
         _FinalStage lobbyConfig(Object lobbyConfig);
+
+        _FinalStage captcha(Optional<Config> captcha);
+
+        _FinalStage captcha(Config captcha);
 
         _FinalStage verificationData(Optional<Object> verificationData);
 
@@ -133,16 +169,20 @@ public final class CreateLobbyRequest {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements GameModeStage, PublicityStage, _FinalStage {
+    public static final class Builder implements GameModeStage, _FinalStage {
         private String gameMode;
-
-        private CustomLobbyPublicity publicity;
 
         private Optional<Object> verificationData = Optional.empty();
 
+        private Optional<Config> captcha = Optional.empty();
+
         private Optional<Object> lobbyConfig = Optional.empty();
 
-        private Optional<Config> captcha = Optional.empty();
+        private Optional<Integer> maxPlayers = Optional.empty();
+
+        private Optional<Map<String, String>> tags = Optional.empty();
+
+        private Optional<CustomLobbyPublicity> publicity = Optional.empty();
 
         private Optional<String> region = Optional.empty();
 
@@ -152,24 +192,19 @@ public final class CreateLobbyRequest {
         public Builder from(CreateLobbyRequest other) {
             gameMode(other.getGameMode());
             region(other.getRegion());
-            captcha(other.getCaptcha());
             publicity(other.getPublicity());
+            tags(other.getTags());
+            maxPlayers(other.getMaxPlayers());
             lobbyConfig(other.getLobbyConfig());
+            captcha(other.getCaptcha());
             verificationData(other.getVerificationData());
             return this;
         }
 
         @Override
         @JsonSetter("game_mode")
-        public PublicityStage gameMode(String gameMode) {
+        public _FinalStage gameMode(String gameMode) {
             this.gameMode = gameMode;
-            return this;
-        }
-
-        @Override
-        @JsonSetter("publicity")
-        public _FinalStage publicity(CustomLobbyPublicity publicity) {
-            this.publicity = publicity;
             return this;
         }
 
@@ -187,6 +222,19 @@ public final class CreateLobbyRequest {
         }
 
         @Override
+        public _FinalStage captcha(Config captcha) {
+            this.captcha = Optional.of(captcha);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "captcha", nulls = Nulls.SKIP)
+        public _FinalStage captcha(Optional<Config> captcha) {
+            this.captcha = captcha;
+            return this;
+        }
+
+        @Override
         public _FinalStage lobbyConfig(Object lobbyConfig) {
             this.lobbyConfig = Optional.of(lobbyConfig);
             return this;
@@ -200,15 +248,41 @@ public final class CreateLobbyRequest {
         }
 
         @Override
-        public _FinalStage captcha(Config captcha) {
-            this.captcha = Optional.of(captcha);
+        public _FinalStage maxPlayers(Integer maxPlayers) {
+            this.maxPlayers = Optional.of(maxPlayers);
             return this;
         }
 
         @Override
-        @JsonSetter(value = "captcha", nulls = Nulls.SKIP)
-        public _FinalStage captcha(Optional<Config> captcha) {
-            this.captcha = captcha;
+        @JsonSetter(value = "max_players", nulls = Nulls.SKIP)
+        public _FinalStage maxPlayers(Optional<Integer> maxPlayers) {
+            this.maxPlayers = maxPlayers;
+            return this;
+        }
+
+        @Override
+        public _FinalStage tags(Map<String, String> tags) {
+            this.tags = Optional.of(tags);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "tags", nulls = Nulls.SKIP)
+        public _FinalStage tags(Optional<Map<String, String>> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+        @Override
+        public _FinalStage publicity(CustomLobbyPublicity publicity) {
+            this.publicity = Optional.of(publicity);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "publicity", nulls = Nulls.SKIP)
+        public _FinalStage publicity(Optional<CustomLobbyPublicity> publicity) {
+            this.publicity = publicity;
             return this;
         }
 
@@ -227,7 +301,8 @@ public final class CreateLobbyRequest {
 
         @Override
         public CreateLobbyRequest build() {
-            return new CreateLobbyRequest(gameMode, region, captcha, publicity, lobbyConfig, verificationData);
+            return new CreateLobbyRequest(
+                    gameMode, region, publicity, tags, maxPlayers, lobbyConfig, captcha, verificationData);
         }
     }
 }

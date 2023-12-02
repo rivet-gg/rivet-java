@@ -28,9 +28,9 @@ public class AvatarsClient {
     }
 
     public ListGameCustomAvatarsResponse listGameCustomAvatars(UUID gameId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("avatars")
                 .build();
@@ -61,9 +61,9 @@ public class AvatarsClient {
 
     public PrepareCustomAvatarUploadResponse prepareCustomAvatarUpload(
             UUID gameId, PrepareCustomAvatarUploadRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("prepare")
                 .build();
@@ -99,9 +99,9 @@ public class AvatarsClient {
     }
 
     public void completeCustomAvatarUpload(UUID gameId, UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("avatar-upload")
                 .addPathSegment(uploadId.toString())

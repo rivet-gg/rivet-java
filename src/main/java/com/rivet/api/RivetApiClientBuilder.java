@@ -18,6 +18,11 @@ public final class RivetApiClientBuilder {
         return this;
     }
 
+    public RivetApiClientBuilder url(String url) {
+        this.environment = Environment.custom(url);
+        return this;
+    }
+
     public RivetApiClient build() {
         clientOptionsBuilder.environment(this.environment);
         return new RivetApiClient(clientOptionsBuilder.build());

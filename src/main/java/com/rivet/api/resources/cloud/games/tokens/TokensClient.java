@@ -25,8 +25,9 @@ public class TokensClient {
     }
 
     public CreateCloudTokenResponse createCloudToken(UUID gameId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("cloud")
                 .addPathSegments("games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("tokens/cloud")

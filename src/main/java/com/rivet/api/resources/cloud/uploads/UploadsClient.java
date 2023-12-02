@@ -24,9 +24,9 @@ public class UploadsClient {
     }
 
     public void completeUpload(UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("uploads")
+                .addPathSegments("cloud/uploads")
                 .addPathSegment(uploadId.toString())
                 .addPathSegments("complete")
                 .build();

@@ -24,9 +24,9 @@ public class LogsClient {
     }
 
     public GetRayPerfLogsResponse getRayPerfLogs(UUID rayId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("rays")
+                .addPathSegments("cloud/rays")
                 .addPathSegment(rayId.toString())
                 .addPathSegments("perf")
                 .build();

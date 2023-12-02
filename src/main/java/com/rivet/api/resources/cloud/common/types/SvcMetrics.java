@@ -21,20 +21,12 @@ public final class SvcMetrics {
 
     private final List<Double> memory;
 
-    private final List<Double> memoryMax;
-
     private final Optional<Double> allocatedMemory;
 
-    private SvcMetrics(
-            String job,
-            List<Double> cpu,
-            List<Double> memory,
-            List<Double> memoryMax,
-            Optional<Double> allocatedMemory) {
+    private SvcMetrics(String job, List<Double> cpu, List<Double> memory, Optional<Double> allocatedMemory) {
         this.job = job;
         this.cpu = cpu;
         this.memory = memory;
-        this.memoryMax = memoryMax;
         this.allocatedMemory = allocatedMemory;
     }
 
@@ -63,14 +55,6 @@ public final class SvcMetrics {
     }
 
     /**
-     * @return Peak memory metrics.
-     */
-    @JsonProperty("memory_max")
-    public List<Double> getMemoryMax() {
-        return memoryMax;
-    }
-
-    /**
      * @return Total allocated memory (MB).
      */
     @JsonProperty("allocated_memory")
@@ -88,13 +72,12 @@ public final class SvcMetrics {
         return job.equals(other.job)
                 && cpu.equals(other.cpu)
                 && memory.equals(other.memory)
-                && memoryMax.equals(other.memoryMax)
                 && allocatedMemory.equals(other.allocatedMemory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.job, this.cpu, this.memory, this.memoryMax, this.allocatedMemory);
+        return Objects.hash(this.job, this.cpu, this.memory, this.allocatedMemory);
     }
 
     @Override
@@ -127,12 +110,6 @@ public final class SvcMetrics {
 
         _FinalStage addAllMemory(List<Double> memory);
 
-        _FinalStage memoryMax(List<Double> memoryMax);
-
-        _FinalStage addMemoryMax(Double memoryMax);
-
-        _FinalStage addAllMemoryMax(List<Double> memoryMax);
-
         _FinalStage allocatedMemory(Optional<Double> allocatedMemory);
 
         _FinalStage allocatedMemory(Double allocatedMemory);
@@ -143,8 +120,6 @@ public final class SvcMetrics {
         private String job;
 
         private Optional<Double> allocatedMemory = Optional.empty();
-
-        private List<Double> memoryMax = new ArrayList<>();
 
         private List<Double> memory = new ArrayList<>();
 
@@ -157,7 +132,6 @@ public final class SvcMetrics {
             job(other.getJob());
             cpu(other.getCpu());
             memory(other.getMemory());
-            memoryMax(other.getMemoryMax());
             allocatedMemory(other.getAllocatedMemory());
             return this;
         }
@@ -187,34 +161,6 @@ public final class SvcMetrics {
         @JsonSetter(value = "allocated_memory", nulls = Nulls.SKIP)
         public _FinalStage allocatedMemory(Optional<Double> allocatedMemory) {
             this.allocatedMemory = allocatedMemory;
-            return this;
-        }
-
-        /**
-         * <p>Peak memory metrics.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @Override
-        public _FinalStage addAllMemoryMax(List<Double> memoryMax) {
-            this.memoryMax.addAll(memoryMax);
-            return this;
-        }
-
-        /**
-         * <p>Peak memory metrics.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @Override
-        public _FinalStage addMemoryMax(Double memoryMax) {
-            this.memoryMax.add(memoryMax);
-            return this;
-        }
-
-        @Override
-        @JsonSetter(value = "memory_max", nulls = Nulls.SKIP)
-        public _FinalStage memoryMax(List<Double> memoryMax) {
-            this.memoryMax.clear();
-            this.memoryMax.addAll(memoryMax);
             return this;
         }
 
@@ -276,7 +222,7 @@ public final class SvcMetrics {
 
         @Override
         public SvcMetrics build() {
-            return new SvcMetrics(job, cpu, memory, memoryMax, allocatedMemory);
+            return new SvcMetrics(job, cpu, memory, allocatedMemory);
         }
     }
 }

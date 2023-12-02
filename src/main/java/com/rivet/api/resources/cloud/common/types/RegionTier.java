@@ -103,7 +103,8 @@ public final class RegionTier {
     }
 
     /**
-     * @return Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00).
+     * @return <strong>Deprecated</strong>
+     * Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00).
      */
     @JsonProperty("price_per_second")
     public int getPricePerSecond() {
@@ -307,7 +308,8 @@ public final class RegionTier {
         }
 
         /**
-         * <p>Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00).</p>
+         * <p><strong>Deprecated</strong>
+         * Price billed for every second this server is running (in quadrillionth USD, 1,000,000,000,000 = $1.00).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @Override

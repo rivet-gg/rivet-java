@@ -29,8 +29,9 @@ public class InvitesClient {
     }
 
     public GetInviteResponse getInvite(String groupInviteCode, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("group")
                 .addPathSegments("invites")
                 .addPathSegment(groupInviteCode)
                 .build();
@@ -58,8 +59,9 @@ public class InvitesClient {
     }
 
     public ConsumeInviteResponse consumeInvite(String groupInviteCode, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("group")
                 .addPathSegments("invites")
                 .addPathSegment(groupInviteCode)
                 .addPathSegments("consume")
@@ -88,8 +90,9 @@ public class InvitesClient {
     }
 
     public CreateInviteResponse createInvite(UUID groupId, CreateInviteRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
+                .addPathSegments("group")
                 .addPathSegments("groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("invites")

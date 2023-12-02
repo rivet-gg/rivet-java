@@ -28,9 +28,9 @@ public class BuildsClient {
     }
 
     public ListGameBuildsResponse listGameBuilds(UUID gameId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("builds")
                 .build();
@@ -59,9 +59,9 @@ public class BuildsClient {
 
     public CreateGameBuildResponse createGameBuild(
             UUID gameId, CreateGameBuildRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("builds")
                 .build();

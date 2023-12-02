@@ -38,9 +38,9 @@ public class LobbiesClient {
     }
 
     public void ready(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("ready")
                 .build();
         Request _request = new Request.Builder()
@@ -66,9 +66,9 @@ public class LobbiesClient {
     }
 
     public void setClosed(SetLobbyClosedRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("closed")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -105,9 +105,9 @@ public class LobbiesClient {
     }
 
     public void setState(Optional<Object> request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("state")
                 .build();
         RequestBody _requestBody;
@@ -141,9 +141,9 @@ public class LobbiesClient {
     }
 
     public Optional<Object> getState(UUID lobbyId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegment(lobbyId.toString())
                 .addPathSegments("state")
                 .build();
@@ -172,9 +172,9 @@ public class LobbiesClient {
     }
 
     public FindLobbyResponse find(FindLobbyRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("find")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -184,6 +184,12 @@ public class LobbiesClient {
         }
         if (request.getPreventAutoCreateLobby().isPresent()) {
             _requestBodyProperties.put("prevent_auto_create_lobby", request.getPreventAutoCreateLobby());
+        }
+        if (request.getTags().isPresent()) {
+            _requestBodyProperties.put("tags", request.getTags());
+        }
+        if (request.getMaxPlayers().isPresent()) {
+            _requestBodyProperties.put("max_players", request.getMaxPlayers());
         }
         if (request.getCaptcha().isPresent()) {
             _requestBodyProperties.put("captcha", request.getCaptcha());
@@ -226,9 +232,9 @@ public class LobbiesClient {
     }
 
     public JoinLobbyResponse join(JoinLobbyRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("join")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -271,9 +277,9 @@ public class LobbiesClient {
     }
 
     public CreateLobbyResponse create(CreateLobbyRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmatchmakerURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("create")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -281,12 +287,20 @@ public class LobbiesClient {
         if (request.getRegion().isPresent()) {
             _requestBodyProperties.put("region", request.getRegion());
         }
-        if (request.getCaptcha().isPresent()) {
-            _requestBodyProperties.put("captcha", request.getCaptcha());
+        if (request.getPublicity().isPresent()) {
+            _requestBodyProperties.put("publicity", request.getPublicity());
         }
-        _requestBodyProperties.put("publicity", request.getPublicity());
+        if (request.getTags().isPresent()) {
+            _requestBodyProperties.put("tags", request.getTags());
+        }
+        if (request.getMaxPlayers().isPresent()) {
+            _requestBodyProperties.put("max_players", request.getMaxPlayers());
+        }
         if (request.getLobbyConfig().isPresent()) {
             _requestBodyProperties.put("lobby_config", request.getLobbyConfig());
+        }
+        if (request.getCaptcha().isPresent()) {
+            _requestBodyProperties.put("captcha", request.getCaptcha());
         }
         if (request.getVerificationData().isPresent()) {
             _requestBodyProperties.put("verification_data", request.getVerificationData());
@@ -324,9 +338,9 @@ public class LobbiesClient {
 
     public ListLobbiesResponse list(ListLobbiesRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getmatchmakerURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("lobbies")
+                .addPathSegments("matchmaker/lobbies")
                 .addPathSegments("list");
         if (request.getIncludeState().isPresent()) {
             _httpUrl.addQueryParameter(

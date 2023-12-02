@@ -57,9 +57,9 @@ public class GroupClient {
 
     public ListSuggestedResponse listSuggested(ListSuggestedRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups");
+                .addPathSegments("group/groups");
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());
         }
@@ -88,9 +88,9 @@ public class GroupClient {
     }
 
     public CreateResponse create(CreateRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .build();
         RequestBody _requestBody;
         try {
@@ -124,9 +124,9 @@ public class GroupClient {
 
     public PrepareAvatarUploadResponse prepareAvatarUpload(
             PrepareAvatarUploadRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegments("avatar-upload/prepare")
                 .build();
         RequestBody _requestBody;
@@ -161,9 +161,9 @@ public class GroupClient {
     }
 
     public ValidateProfileResponse validateProfile(ValidateProfileRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegments("profile/validate")
                 .build();
         RequestBody _requestBody;
@@ -198,9 +198,9 @@ public class GroupClient {
 
     public SearchResponse search(SearchRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegments("search");
         _httpUrl.addQueryParameter("query", request.getQuery());
         if (request.getAnchor().isPresent()) {
@@ -234,9 +234,9 @@ public class GroupClient {
     }
 
     public void completeAvatarUpload(UUID groupId, UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("avatar-upload")
                 .addPathSegment(uploadId.toString())
@@ -266,9 +266,9 @@ public class GroupClient {
 
     public GetBansResponse getBans(UUID groupId, GetBansRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("bans");
         if (request.getAnchor().isPresent()) {
@@ -305,9 +305,9 @@ public class GroupClient {
     }
 
     public void banIdentity(UUID groupId, UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("bans")
                 .addPathSegment(identityId.toString())
@@ -335,9 +335,9 @@ public class GroupClient {
     }
 
     public void unbanIdentity(UUID groupId, UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("bans")
                 .addPathSegment(identityId.toString())
@@ -367,9 +367,9 @@ public class GroupClient {
     public GetJoinRequestsResponse getJoinRequests(
             UUID groupId, GetJoinRequestsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("join-requests");
         if (request.getAnchor().isPresent()) {
@@ -406,9 +406,9 @@ public class GroupClient {
     }
 
     public void kickMember(UUID groupId, UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("kick")
                 .addPathSegment(identityId.toString())
@@ -436,9 +436,9 @@ public class GroupClient {
     }
 
     public void leave(UUID groupId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("leave")
                 .build();
@@ -466,9 +466,9 @@ public class GroupClient {
 
     public GetMembersResponse getMembers(UUID groupId, GetMembersRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("members");
         if (request.getAnchor().isPresent()) {
@@ -506,9 +506,9 @@ public class GroupClient {
 
     public GetProfileResponse getProfile(UUID groupId, GetProfileRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getgroupURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("profile");
         if (request.getWatchIndex().isPresent()) {
@@ -539,9 +539,9 @@ public class GroupClient {
     }
 
     public void updateProfile(UUID groupId, UpdateProfileRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("profile")
                 .build();
@@ -576,9 +576,9 @@ public class GroupClient {
     }
 
     public GetSummaryResponse getSummary(UUID groupId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("summary")
                 .build();
@@ -606,9 +606,9 @@ public class GroupClient {
     }
 
     public void transferOwnership(UUID groupId, TransferOwnershipRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("transfer-owner")
                 .build();

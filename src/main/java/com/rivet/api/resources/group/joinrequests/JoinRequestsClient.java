@@ -26,9 +26,9 @@ public class JoinRequestsClient {
     }
 
     public void createJoinRequest(UUID groupId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("join-request")
                 .build();
@@ -56,9 +56,9 @@ public class JoinRequestsClient {
 
     public void resolveJoinRequest(
             UUID groupId, UUID identityId, ResolveJoinRequestRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getgroupURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("group/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("join-request")
                 .addPathSegment(identityId.toString())

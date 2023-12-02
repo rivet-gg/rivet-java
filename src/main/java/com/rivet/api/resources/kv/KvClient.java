@@ -33,9 +33,9 @@ public class KvClient {
 
     public GetResponse get(GetOperationRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getkvURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries");
+                .addPathSegments("kv/entries");
         _httpUrl.addQueryParameter("key", request.getKey());
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());
@@ -69,9 +69,9 @@ public class KvClient {
     }
 
     public void put(PutRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getkvURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries")
+                .addPathSegments("kv/entries")
                 .build();
         RequestBody _requestBody;
         try {
@@ -105,9 +105,9 @@ public class KvClient {
 
     public void delete(DeleteOperationRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getkvURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries");
+                .addPathSegments("kv/entries");
         _httpUrl.addQueryParameter("key", request.getKey());
         if (request.getNamespaceId().isPresent()) {
             _httpUrl.addQueryParameter(
@@ -138,9 +138,9 @@ public class KvClient {
 
     public GetBatchResponse getBatch(GetBatchRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getkvURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries")
+                .addPathSegments("kv/entries")
                 .addPathSegments("batch");
         _httpUrl.addQueryParameter("keys", request.getKeys());
         if (request.getWatchIndex().isPresent()) {
@@ -175,9 +175,9 @@ public class KvClient {
     }
 
     public void putBatch(PutBatchRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getkvURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries")
+                .addPathSegments("kv/entries")
                 .addPathSegments("batch")
                 .build();
         RequestBody _requestBody;
@@ -212,9 +212,9 @@ public class KvClient {
 
     public void deleteBatch(DeleteBatchRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getkvURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("entries")
+                .addPathSegments("kv/entries")
                 .addPathSegments("batch");
         _httpUrl.addQueryParameter("keys", request.getKeys());
         if (request.getNamespaceId().isPresent()) {

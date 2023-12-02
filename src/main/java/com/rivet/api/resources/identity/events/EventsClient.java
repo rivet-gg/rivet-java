@@ -26,9 +26,9 @@ public class EventsClient {
 
     public WatchEventsResponse watch(WatchEventsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("events")
+                .addPathSegments("identity/events")
                 .addPathSegments("live");
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());

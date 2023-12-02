@@ -27,9 +27,9 @@ public class GroupsClient {
     }
 
     public ValidateGroupResponse validate(ValidateGroupRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("cloud/groups")
                 .addPathSegments("validate")
                 .build();
         RequestBody _requestBody;
@@ -63,9 +63,9 @@ public class GroupsClient {
     }
 
     public void convertGroup(UUID groupId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("groups")
+                .addPathSegments("cloud/groups")
                 .addPathSegment(groupId.toString())
                 .addPathSegments("convert")
                 .build();

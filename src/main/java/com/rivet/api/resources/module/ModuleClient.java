@@ -28,9 +28,9 @@ public class ModuleClient {
     }
 
     public CallResponse call(String module, String script, FindLobbyRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getmoduleURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("modules")
+                .addPathSegments("module/modules")
                 .addPathSegment(module)
                 .addPathSegments("scripts")
                 .addPathSegment(script)

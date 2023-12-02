@@ -28,9 +28,9 @@ public class CdnClient {
     }
 
     public ListGameCdnSitesResponse listGameCdnSites(UUID gameId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("cdn/sites")
                 .build();
@@ -59,9 +59,9 @@ public class CdnClient {
 
     public CreateGameCdnSiteResponse createGameCdnSite(
             UUID gameId, CreateGameCdnSiteRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("cdn/sites")
                 .build();

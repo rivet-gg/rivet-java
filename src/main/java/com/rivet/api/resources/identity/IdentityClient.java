@@ -66,9 +66,9 @@ public class IdentityClient {
     }
 
     public SetupResponse setup(SetupRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
         if (request.getExistingIdentityToken().isPresent()) {
@@ -107,9 +107,9 @@ public class IdentityClient {
 
     public GetProfileResponse getProfile(UUID identityId, GetProfileRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("profile");
         if (request.getWatchIndex().isPresent()) {
@@ -141,9 +141,9 @@ public class IdentityClient {
 
     public GetProfileResponse getSelfProfile(GetSelfProfileRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/profile");
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());
@@ -174,9 +174,9 @@ public class IdentityClient {
 
     public GetHandlesResponse getHandles(GetHandlesRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("batch/handle");
         _httpUrl.addQueryParameter("identity_ids", request.getIdentityIds());
         RequestBody _requestBody = null;
@@ -205,9 +205,9 @@ public class IdentityClient {
 
     public GetSummariesResponse getSummaries(GetSummariesRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("batch/summary");
         _httpUrl.addQueryParameter("identity_ids", request.getIdentityIds());
         RequestBody _requestBody = null;
@@ -235,9 +235,9 @@ public class IdentityClient {
     }
 
     public void updateProfile(UpdateProfileRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/profile")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -282,9 +282,9 @@ public class IdentityClient {
     }
 
     public void validateProfile(ValidateProfileRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/profile/validate")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -330,9 +330,9 @@ public class IdentityClient {
 
     public SearchResponse search(SearchRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("search");
         _httpUrl.addQueryParameter("query", request.getQuery());
         if (request.getAnchor().isPresent()) {
@@ -366,9 +366,9 @@ public class IdentityClient {
     }
 
     public void setGameActivity(SetGameActivityRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/activity")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -405,9 +405,9 @@ public class IdentityClient {
     }
 
     public void removeGameActivity(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/activity")
                 .build();
         Request _request = new Request.Builder()
@@ -433,9 +433,9 @@ public class IdentityClient {
     }
 
     public void updateStatus(UpdateStatusRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("identities/self/status")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -472,9 +472,9 @@ public class IdentityClient {
     }
 
     public void follow(UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("follow")
                 .build();
@@ -501,9 +501,9 @@ public class IdentityClient {
     }
 
     public void unfollow(UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("follow")
                 .build();
@@ -531,9 +531,9 @@ public class IdentityClient {
 
     public PrepareAvatarUploadResponse prepareAvatarUpload(
             PrepareAvatarUploadRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("avatar-upload/prepare")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -573,9 +573,9 @@ public class IdentityClient {
     }
 
     public void completeAvatarUpload(UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("avatar-upload")
                 .addPathSegment(uploadId.toString())
                 .addPathSegments("complete")
@@ -603,9 +603,9 @@ public class IdentityClient {
     }
 
     public void signupForBeta(SignupForBetaRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/beta-signup")
                 .build();
         Map<String, Object> _requestBodyProperties = new HashMap<>();
@@ -648,9 +648,9 @@ public class IdentityClient {
     }
 
     public void report(UUID identityId, ReportRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("report")
                 .build();
@@ -692,9 +692,9 @@ public class IdentityClient {
     public ListFollowersResponse listFollowers(
             UUID identityId, ListFollowersRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("followers");
         if (request.getAnchor().isPresent()) {
@@ -730,9 +730,9 @@ public class IdentityClient {
     public ListFollowingResponse listFollowing(
             UUID identityId, ListFollowingRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("following");
         if (request.getAnchor().isPresent()) {
@@ -767,9 +767,9 @@ public class IdentityClient {
 
     public ListFriendsResponse listFriends(ListFriendsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/friends");
         if (request.getAnchor().isPresent()) {
             _httpUrl.addQueryParameter("anchor", request.getAnchor().get());
@@ -804,9 +804,9 @@ public class IdentityClient {
     public ListMutualFriendsResponse listMutualFriends(
             UUID identityId, ListMutualFriendsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("mutual-friends");
         if (request.getAnchor().isPresent()) {
@@ -842,9 +842,9 @@ public class IdentityClient {
     public ListRecentFollowersResponse listRecentFollowers(
             ListRecentFollowersRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getidentityURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/recent-followers");
         if (request.getCount().isPresent()) {
             _httpUrl.addQueryParameter("count", request.getCount().get().toString());
@@ -878,9 +878,9 @@ public class IdentityClient {
     }
 
     public void ignoreRecentFollower(UUID identityId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/recent-followers")
                 .addPathSegment(identityId.toString())
                 .addPathSegments("ignore")
@@ -908,9 +908,9 @@ public class IdentityClient {
     }
 
     public void markDeletion(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/delete-request")
                 .build();
         Request _request = new Request.Builder()
@@ -936,9 +936,9 @@ public class IdentityClient {
     }
 
     public void unmarkDeletion(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getidentityURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("identities")
+                .addPathSegments("identity/identities")
                 .addPathSegments("self/delete-request")
                 .build();
         Request _request = new Request.Builder()

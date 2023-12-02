@@ -23,9 +23,9 @@ public class AuthClient {
     }
 
     public InspectResponse inspect(RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("auth")
+                .addPathSegments("cloud/auth")
                 .addPathSegments("inspect")
                 .build();
         Request _request = new Request.Builder()

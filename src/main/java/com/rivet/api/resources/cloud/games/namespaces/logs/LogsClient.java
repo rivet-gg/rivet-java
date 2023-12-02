@@ -30,9 +30,9 @@ public class LogsClient {
     public ListNamespaceLobbiesResponse listNamespaceLobbies(
             UUID gameId, UUID namespaceId, ListNamespaceLobbiesRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
                 .addPathSegment(namespaceId.toString())
@@ -68,9 +68,9 @@ public class LogsClient {
 
     public GetNamespaceLobbyResponse getNamespaceLobby(
             UUID gameId, UUID namespaceId, UUID lobbyId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("namespaces")
                 .addPathSegment(namespaceId.toString())

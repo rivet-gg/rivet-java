@@ -13,11 +13,8 @@ import java.util.Objects;
 public final class ExternalLinks {
     private final String profile;
 
-    private final String chat;
-
-    private ExternalLinks(String profile, String chat) {
+    private ExternalLinks(String profile) {
         this.profile = profile;
-        this.chat = chat;
     }
 
     /**
@@ -28,14 +25,6 @@ public final class ExternalLinks {
         return profile;
     }
 
-    /**
-     * @return A link to this group's chat page.
-     */
-    @JsonProperty("chat")
-    public String getChat() {
-        return chat;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -43,12 +32,12 @@ public final class ExternalLinks {
     }
 
     private boolean equalTo(ExternalLinks other) {
-        return profile.equals(other.profile) && chat.equals(other.chat);
+        return profile.equals(other.profile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.profile, this.chat);
+        return Objects.hash(this.profile);
     }
 
     @Override
@@ -61,13 +50,9 @@ public final class ExternalLinks {
     }
 
     public interface ProfileStage {
-        ChatStage profile(String profile);
+        _FinalStage profile(String profile);
 
         Builder from(ExternalLinks other);
-    }
-
-    public interface ChatStage {
-        _FinalStage chat(String chat);
     }
 
     public interface _FinalStage {
@@ -75,17 +60,14 @@ public final class ExternalLinks {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements ProfileStage, ChatStage, _FinalStage {
+    public static final class Builder implements ProfileStage, _FinalStage {
         private String profile;
-
-        private String chat;
 
         private Builder() {}
 
         @Override
         public Builder from(ExternalLinks other) {
             profile(other.getProfile());
-            chat(other.getChat());
             return this;
         }
 
@@ -95,25 +77,14 @@ public final class ExternalLinks {
          */
         @Override
         @JsonSetter("profile")
-        public ChatStage profile(String profile) {
+        public _FinalStage profile(String profile) {
             this.profile = profile;
-            return this;
-        }
-
-        /**
-         * <p>A link to this group's chat page.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @Override
-        @JsonSetter("chat")
-        public _FinalStage chat(String chat) {
-            this.chat = chat;
             return this;
         }
 
         @Override
         public ExternalLinks build() {
-            return new ExternalLinks(profile, chat);
+            return new ExternalLinks(profile);
         }
     }
 }

@@ -1,17 +1,15 @@
-package com.rivet.api.resources.chat.common.types;
+package com.rivet.api.resources.cloud.games.builds.types;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum QueryDirection {
-    BEFORE("before"),
+public enum BuildCompression {
+    NONE("none"),
 
-    AFTER("after"),
-
-    BEFORE_AND_AFTER("before_and_after");
+    LZ_4("lz4");
 
     private final String value;
 
-    QueryDirection(String value) {
+    BuildCompression(String value) {
         this.value = value;
     }
 

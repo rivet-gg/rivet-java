@@ -15,13 +15,21 @@ import java.util.Optional;
 public final class LinkedAccount {
     private final Optional<EmailLinkedAccount> email;
 
-    private LinkedAccount(Optional<EmailLinkedAccount> email) {
+    private final Optional<AccessTokenLinkedAccount> accessToken;
+
+    private LinkedAccount(Optional<EmailLinkedAccount> email, Optional<AccessTokenLinkedAccount> accessToken) {
         this.email = email;
+        this.accessToken = accessToken;
     }
 
     @JsonProperty("email")
     public Optional<EmailLinkedAccount> getEmail() {
         return email;
+    }
+
+    @JsonProperty("access_token")
+    public Optional<AccessTokenLinkedAccount> getAccessToken() {
+        return accessToken;
     }
 
     @Override
@@ -31,12 +39,12 @@ public final class LinkedAccount {
     }
 
     private boolean equalTo(LinkedAccount other) {
-        return email.equals(other.email);
+        return email.equals(other.email) && accessToken.equals(other.accessToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.email);
+        return Objects.hash(this.email, this.accessToken);
     }
 
     @Override
@@ -52,10 +60,13 @@ public final class LinkedAccount {
     public static final class Builder {
         private Optional<EmailLinkedAccount> email = Optional.empty();
 
+        private Optional<AccessTokenLinkedAccount> accessToken = Optional.empty();
+
         private Builder() {}
 
         public Builder from(LinkedAccount other) {
             email(other.getEmail());
+            accessToken(other.getAccessToken());
             return this;
         }
 
@@ -70,8 +81,19 @@ public final class LinkedAccount {
             return this;
         }
 
+        @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
+        public Builder accessToken(Optional<AccessTokenLinkedAccount> accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+
+        public Builder accessToken(AccessTokenLinkedAccount accessToken) {
+            this.accessToken = Optional.of(accessToken);
+            return this;
+        }
+
         public LinkedAccount build() {
-            return new LinkedAccount(email);
+            return new LinkedAccount(email, accessToken);
         }
     }
 }

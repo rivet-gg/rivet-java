@@ -22,12 +22,23 @@ public final class CreateGameBuildRequest {
 
     private final Optional<Boolean> multipartUpload;
 
+    private final Optional<BuildKind> kind;
+
+    private final Optional<BuildCompression> compression;
+
     private CreateGameBuildRequest(
-            String displayName, String imageTag, PrepareFile imageFile, Optional<Boolean> multipartUpload) {
+            String displayName,
+            String imageTag,
+            PrepareFile imageFile,
+            Optional<Boolean> multipartUpload,
+            Optional<BuildKind> kind,
+            Optional<BuildCompression> compression) {
         this.displayName = displayName;
         this.imageTag = imageTag;
         this.imageFile = imageFile;
         this.multipartUpload = multipartUpload;
+        this.kind = kind;
+        this.compression = compression;
     }
 
     /**
@@ -56,6 +67,16 @@ public final class CreateGameBuildRequest {
         return multipartUpload;
     }
 
+    @JsonProperty("kind")
+    public Optional<BuildKind> getKind() {
+        return kind;
+    }
+
+    @JsonProperty("compression")
+    public Optional<BuildCompression> getCompression() {
+        return compression;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -66,12 +87,15 @@ public final class CreateGameBuildRequest {
         return displayName.equals(other.displayName)
                 && imageTag.equals(other.imageTag)
                 && imageFile.equals(other.imageFile)
-                && multipartUpload.equals(other.multipartUpload);
+                && multipartUpload.equals(other.multipartUpload)
+                && kind.equals(other.kind)
+                && compression.equals(other.compression);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.displayName, this.imageTag, this.imageFile, this.multipartUpload);
+        return Objects.hash(
+                this.displayName, this.imageTag, this.imageFile, this.multipartUpload, this.kind, this.compression);
     }
 
     @Override
@@ -103,6 +127,14 @@ public final class CreateGameBuildRequest {
         _FinalStage multipartUpload(Optional<Boolean> multipartUpload);
 
         _FinalStage multipartUpload(Boolean multipartUpload);
+
+        _FinalStage kind(Optional<BuildKind> kind);
+
+        _FinalStage kind(BuildKind kind);
+
+        _FinalStage compression(Optional<BuildCompression> compression);
+
+        _FinalStage compression(BuildCompression compression);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -112,6 +144,10 @@ public final class CreateGameBuildRequest {
         private String imageTag;
 
         private PrepareFile imageFile;
+
+        private Optional<BuildCompression> compression = Optional.empty();
+
+        private Optional<BuildKind> kind = Optional.empty();
 
         private Optional<Boolean> multipartUpload = Optional.empty();
 
@@ -123,6 +159,8 @@ public final class CreateGameBuildRequest {
             imageTag(other.getImageTag());
             imageFile(other.getImageFile());
             multipartUpload(other.getMultipartUpload());
+            kind(other.getKind());
+            compression(other.getCompression());
             return this;
         }
 
@@ -156,6 +194,32 @@ public final class CreateGameBuildRequest {
         }
 
         @Override
+        public _FinalStage compression(BuildCompression compression) {
+            this.compression = Optional.of(compression);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "compression", nulls = Nulls.SKIP)
+        public _FinalStage compression(Optional<BuildCompression> compression) {
+            this.compression = compression;
+            return this;
+        }
+
+        @Override
+        public _FinalStage kind(BuildKind kind) {
+            this.kind = Optional.of(kind);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "kind", nulls = Nulls.SKIP)
+        public _FinalStage kind(Optional<BuildKind> kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        @Override
         public _FinalStage multipartUpload(Boolean multipartUpload) {
             this.multipartUpload = Optional.of(multipartUpload);
             return this;
@@ -170,7 +234,7 @@ public final class CreateGameBuildRequest {
 
         @Override
         public CreateGameBuildRequest build() {
-            return new CreateGameBuildRequest(displayName, imageTag, imageFile, multipartUpload);
+            return new CreateGameBuildRequest(displayName, imageTag, imageFile, multipartUpload, kind, compression);
         }
     }
 }

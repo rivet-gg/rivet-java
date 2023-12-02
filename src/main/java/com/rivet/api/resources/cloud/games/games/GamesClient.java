@@ -38,9 +38,9 @@ public class GamesClient {
 
     public GetGamesResponse getGames(GetGamesRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games");
+                .addPathSegments("cloud/games");
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());
         }
@@ -69,9 +69,9 @@ public class GamesClient {
     }
 
     public CreateGameResponse createGame(CreateGameRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .build();
         RequestBody _requestBody;
         try {
@@ -104,9 +104,9 @@ public class GamesClient {
     }
 
     public ValidateGameResponse validateGame(ValidateGameRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegments("validate")
                 .build();
         RequestBody _requestBody;
@@ -141,9 +141,9 @@ public class GamesClient {
 
     public GetGameByIdResponse getGameById(UUID gameId, GetGameByIdRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder _httpUrl = HttpUrl.parse(
-                        this.clientOptions.environment().getcloudURL())
+                        this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString());
         if (request.getWatchIndex().isPresent()) {
             _httpUrl.addQueryParameter("watch_index", request.getWatchIndex().get());
@@ -175,9 +175,9 @@ public class GamesClient {
 
     public GameBannerUploadPrepareResponse gameBannerUploadPrepare(
             UUID gameId, GameBannerUploadPrepareRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("banner-upload/prepare")
                 .build();
@@ -213,9 +213,9 @@ public class GamesClient {
     }
 
     public void gameBannerUploadComplete(UUID gameId, UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("banner-upload")
                 .addPathSegment(uploadId.toString())
@@ -245,9 +245,9 @@ public class GamesClient {
 
     public GameLogoUploadPrepareResponse gameLogoUploadPrepare(
             UUID gameId, GameLogoUploadPrepareRequest request, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("logo-upload/prepare")
                 .build();
@@ -283,9 +283,9 @@ public class GamesClient {
     }
 
     public void gameLogoUploadComplete(UUID gameId, UUID uploadId, RequestOptions requestOptions) {
-        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getcloudURL())
+        HttpUrl _httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("games")
+                .addPathSegments("cloud/games")
                 .addPathSegment(gameId.toString())
                 .addPathSegments("logo-upload")
                 .addPathSegment(uploadId.toString())
