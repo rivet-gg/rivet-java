@@ -1,5 +1,12 @@
 # Rivet Java Library
 
+___
+
+## ❗ DEPRECATION NOTICE ❗
+
+### This repo is being deprecated as all functionality has been moved into [the main repo](https://github.com/rivet-gg/rivet) 
+___
+
 [![Maven Central](https://img.shields.io/maven-central/v/gg.rivet/api)](https://central.sonatype.com/artifact/gg.rivet/api) 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://buildwithfern.com/?utm_source=rivet-gg/rivet-java/readme)
 
